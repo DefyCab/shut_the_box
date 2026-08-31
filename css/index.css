@@ -1,3 +1,10 @@
 body {
+    margin: 1px;
     background-color: rgb(235, 238, 241);
+}
+
+header {
+    background-color: beige;
+    padding: 10px;
+    margin: 0px;
 }

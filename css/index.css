@@ -17,12 +17,15 @@ body {
 }
 
 a {
-  color: whitesmoke;
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(202, 207, 211);
+  color: rgb(113, 140, 161);
+}
+
+.shut-the-box-h1 {
+  color: rgb(152, 168, 183);
 }
 
 h1 {
@@ -31,22 +34,26 @@ h1 {
   font-size: 2.5rem;
 }
 
+.box-container {
+  display: flex;
+  justify-content: space-evenly;
+}
 .game-box {
+  display: flex;
+  margin-top: 10rem;
   border: solid slategray;
-  align-items: center;
   justify-content: center;
-  height: 100px;
-  width: 150px;
-  background-color: whitesmoke;
+  height: 30rem;
+  width: 25rem;
+  background-color: rgb(245, 245, 245, 0.7);
 }
 
 .bio-box {
+  margin-top: 10rem;
   border: solid slategray;
   align-items: center;
   justify-content: center;
-  height: 100px;
-  width: 150px;
-  background-color: lightblue;
+  height: 30rem;
+  width: 25rem;
+  background-color: rgb(173, 216, 230, 0.8);
 }
-
-

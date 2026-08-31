@@ -4,12 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/blue_dice.png" />
+    <link rel="stylesheet" type="text/css" href="css/game.css" />
     <title>Shut the box</title>
 </head>
 <body>
-    <h1>WELCOME TO SHUT THE BOX</h1>
+    <div>
+        <h1>SHUT THE BOX</h1>
+    </div>
+    <main class="game-board">
+
+        <!-- Header -->
+        <header class="game-header">
+
+            <span class="dice-icon">👩</span>
+            <span class="active-player">Defylol</span>
+            <span class="score">(0 / 0)</span>
+        </header>
+
+        <!-- Number board -->
+        <section class="number-board">
+
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+
+        </section>
+
+        <!-- Dice area -->
+        <section class="dice-area">
+
+            <div class="die">
+                <span class="pip top-left"></span>
+                <span class="pip top-right"></span>
+                <span class="pip center"></span>
+                <span class="pip bottom-left"></span>
+                <span class="pip bottom-right"></span>
+            </div>
+
+            <div class="die">
+                <span class="pip top-left"></span>
+                <span class="pip center"></span>
+                <span class="pip bottom-right"></span>
+            </div>
+
+        </section>
+
+    </main>
+
 </body>
+</html>
 <footer>
-    <p><a class="game-link" href="index.html">Back</a></p>
+    <h2><a class="game-link" href="index.html">Back</a></h2>
 </footer>
 </html>

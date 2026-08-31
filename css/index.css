@@ -1,14 +1,14 @@
 body {
-  display: flex;
   margin: 0px;
-  background-color: rgb(235, 238, 241);
+  padding: 0px;
+  background-image: url("https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
 }
 
 .header-container {
   display: flex;
   width: 100%;
   align-items: center;
-  background-color: rgba(14, 79, 2, 0.925);
+  background-color: rgba(19, 111, 3, 0.925);
   padding: 10px;
   margin: 0px;
   border-radius: 5px;

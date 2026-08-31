@@ -2,6 +2,8 @@ body {
   margin: 0px;
   padding: 0px;
   background-image: url("https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .header-container {
@@ -16,19 +18,38 @@ body {
   box-shadow: 5px 5px 2px 2px rgba(26, 26, 26, 0.6);
 }
 
+.shut-the-box-a {
+  color: black;
+}
+
+.shut-the-box-h1 {
+  margin: 2px;
+}
+
 a {
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(113, 140, 161);
+  color: rgb(38, 126, 214);
 }
 
-.shut-the-box-h1 {
-  color: rgb(152, 168, 183);
+h3 {
+  margin: 4px;
 }
 
-h1 {
+.love-h1 {
+  margin: 0px;
+  padding-top: 12px;
+  color: black;
+}
+
+.games-h1 {
+  margin: 0px;
+  padding-top: 10px;
+}
+
+.header-h1 {
   color: whitesmoke;
   font-weight: lighter;
   font-size: 2.5rem;
@@ -38,22 +59,28 @@ h1 {
   display: flex;
   justify-content: space-evenly;
 }
+
 .game-box {
   display: flex;
+  flex-direction: column;
   margin-top: 10rem;
   border: solid slategray;
-  justify-content: center;
+  /* justify-content: center; */
+  align-items: center;
   height: 30rem;
   width: 25rem;
-  background-color: rgb(245, 245, 245, 0.7);
+  border-radius: 2%;
+  background-color: rgb(245, 245, 245, 0.75);
 }
 
 .bio-box {
+  display: flex;
+  flex-direction: column;
   margin-top: 10rem;
   border: solid slategray;
   align-items: center;
-  justify-content: center;
   height: 30rem;
   width: 25rem;
-  background-color: rgb(173, 216, 230, 0.8);
+  border-radius: 2%;
+  background-color: rgb(245, 245, 245, 0.75);
 }

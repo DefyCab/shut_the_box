@@ -61,12 +61,11 @@ h3 {
   justify-content: space-evenly;
 }
 
-.game-box {
+.box-general {
   display: flex;
   flex-direction: column;
   margin-top: 10rem;
   border: solid slategray;
-  /* justify-content: center; */
   align-items: center;
   height: 30rem;
   width: 25rem;
@@ -74,14 +73,4 @@ h3 {
   background-color: rgb(245, 245, 245, 0.75);
 }
 
-.bio-box {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10rem;
-  border: solid slategray;
-  align-items: center;
-  height: 30rem;
-  width: 25rem;
-  border-radius: 2%;
-  background-color: rgb(245, 245, 245, 0.75);
-}
+

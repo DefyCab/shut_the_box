@@ -278,5 +278,14 @@ body::before {
   right: 20px;
 }
 
+.middle-left {
+  top: 50px;
+  left: 20px;
+}
+
+.middle-right {
+  bottom: 50px;
+  right: 20px;
+}
 
 

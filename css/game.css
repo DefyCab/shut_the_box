@@ -288,7 +288,7 @@ body::before {
   right: 20px;
 }
 
-.roll {
+.roll-button {
   border: 2px solid whitesmoke;
   background-color: #071b45;
   color: rgba(135, 38, 255, 0.9);
@@ -299,4 +299,5 @@ body::before {
   margin: 0;
   font-size: 25px;
   border-radius: 4px;
+  cursor: pointer;
 }

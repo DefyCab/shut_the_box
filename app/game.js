@@ -48,9 +48,26 @@ function showDieRollTwo() {
   diceArea.appendChild(dieBox);
 }
 
-function rollDice() {
-  const roll = addEventListener();
+randomizeDice();
+const rollBoth = document.getElementById("roll-both");
+rollBoth.addEventListener("click", rollBothDice);
+
+function rollBothDice() {
+  removeOldDice();
+  randomizeDice();
+  showDieRollOne();
+  showDieRollTwo();
 }
 
-// const currentRollOne = showDieRollOne()
-// const currentRollTwo = showDieRollTwo()
+function removeOldDice() {
+  const dice = document.querySelectorAll(".die");
+  const diceArea = document.querySelector(".dice-area");
+  if (dice.length != 0) {
+    // for(i = 0; i < dice.length; i++)
+    // dice[i].remove();
+
+    for (i = 0; i < dice.length; i++) {
+      diceArea.removeChild(dice[i]);
+    }
+  }
+}

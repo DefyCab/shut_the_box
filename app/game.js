@@ -16,56 +16,39 @@ const dice = [
 
 const diceArea = document.querySelector(".dice-area");
 
-let diceRollOne = 0;
-let diceRollTwo = 0;
+const diceRolls = [0, 0];
 
 function randomizeDice() {
-  diceRollOne = Math.floor(Math.random() * 6);
-  diceRollTwo = Math.floor(Math.random() * 6);
+  diceRolls[0] = Math.floor(Math.random() * 6);
+  diceRolls[1] = Math.floor(Math.random() * 6);
 }
 
-function showDieRollOne() {
-  const dieBox = document.createElement("div");
-
-  for (i = 0; i <= diceRollOne; i++) {
-    const cspan = document.createElement("span");
-    cspan.classList.add("pip", dice[diceRollOne][i]);
-    dieBox.appendChild(cspan);
+function showDice() {
+  for (j = 0; j < diceRolls.length; j++) {
+    const dieBox = document.createElement("div");
+    for (i = 0; i <= diceRolls[j]; i++) {
+      const cspan = document.createElement("span");
+      cspan.classList.add("pip", dice[diceRolls[j]][i]);
+      dieBox.appendChild(cspan);
+    }
+    dieBox.classList.add("die");
+    diceArea.appendChild(dieBox);
   }
-  dieBox.classList.add("die");
-  diceArea.appendChild(dieBox);
 }
 
-function showDieRollTwo() {
-  const dieBox = document.createElement("div");
-
-  for (i = 0; i <= diceRollTwo; i++) {
-    const cspan = document.createElement("span");
-    cspan.classList.add("pip", dice[diceRollTwo][i]);
-    dieBox.appendChild(cspan);
-  }
-  dieBox.classList.add("die");
-  diceArea.appendChild(dieBox);
-}
-
-randomizeDice();
 const rollBoth = document.getElementById("roll-both");
 rollBoth.addEventListener("click", rollBothDice);
 
 function rollBothDice() {
   removeOldDice();
   randomizeDice();
-  showDieRollOne();
-  showDieRollTwo();
+  showDice();
 }
 
 function removeOldDice() {
   const dice = document.querySelectorAll(".die");
   const diceArea = document.querySelector(".dice-area");
   if (dice.length != 0) {
-    // for(i = 0; i < dice.length; i++)
-    // dice[i].remove();
-
     for (i = 0; i < dice.length; i++) {
       diceArea.removeChild(dice[i]);
     }

@@ -11,8 +11,8 @@ body {
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: rgba(19, 111, 3, 0.925);
-  padding: 10px;
+  background-color: rgba(4, 20, 55, 0.925);
+  padding: 4px;
   margin: 0px;
   border-radius: 8px;
   box-shadow: 5px 5px 2px 2px rgba(26, 26, 26, 0.6);

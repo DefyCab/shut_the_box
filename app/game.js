@@ -36,8 +36,18 @@ function showDice() {
   }
 }
 
+const rollOne = document.getElementById("roll-one");
+rollOne.addEventListener("click", rollOneDie);
+
 const rollBoth = document.getElementById("roll-both");
 rollBoth.addEventListener("click", rollBothDice);
+
+function rollOneDie() {
+  removeOldDice();
+  randomizeDice();
+  diceRolls.pop();
+  showDice();
+}
 
 function rollBothDice() {
   removeOldDice();

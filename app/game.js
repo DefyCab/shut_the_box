@@ -19,12 +19,10 @@ const diceArea = document.querySelector(".dice-area");
 let diceRollOne = 0;
 let diceRollTwo = 0;
 
-function rollDice() {
+function randomizeDice() {
   diceRollOne = Math.floor(Math.random() * 6);
   diceRollTwo = Math.floor(Math.random() * 6);
 }
-
-rollDice();
 
 function showDieRollOne() {
   const dieBox = document.createElement("div");
@@ -50,8 +48,9 @@ function showDieRollTwo() {
   diceArea.appendChild(dieBox);
 }
 
-const currentRollOne = showDieRollOne()
-const currentRollTwo = showDieRollTwo()
+function rollDice() {
+  const roll = addEventListener();
+}
 
-
-
+// const currentRollOne = showDieRollOne()
+// const currentRollTwo = showDieRollTwo()

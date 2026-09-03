@@ -73,4 +73,12 @@ h3 {
   background-color: rgb(245, 245, 245, 0.75);
 }
 
-
+.footer {
+  margin:0;
+  margin-right: 5rem;
+  padding: 0;
+  display: flex;
+  font-size: 10px;
+  justify-content: flex-end;
+  align-items: bottom;
+}

@@ -14,9 +14,9 @@ Logik tankekarta:
 
 Lagra användare i ett objekt för att hantera state - ej påbörjat
 
-Alla möjliga tärningslag lagras i en array med objekt - exprimentstadie
+Alla möjliga tärningslag lagras i en array av arrayer - färdig
 Skapa tärningar dynamiskt inte statiskt i html - påbörjat
 
-Skapa en funktion som slumpar fram tärningsslag.
-Skapa en funktion som visar upp de framslumpande tärningarna i game-vyn.
+Skapa en funktion som slumpar fram tärningsslag - färdig
+Skapa en funktion som visar upp de framslumpande tärningarna i game-vyn - pågående (två funktioner nu, en för mycket?)
 

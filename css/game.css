@@ -279,12 +279,12 @@ body::before {
 }
 
 .middle-left {
-  top: 50px;
+  top: 55px;
   left: 20px;
 }
 
 .middle-right {
-  bottom: 50px;
+  top: 55px;
   right: 20px;
 }
 

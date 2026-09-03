@@ -8,8 +8,10 @@ Utseende:
 
 Rymdtema preliminärt.
 
-Logik:
+Logik tankekarta:
 
-Lagra användare i ett objekt för att hantera state.
+Lagra användare i ett objekt för att hantera state - ej påbörjat
 
-Alla möjliga tärningslag lagras i en array med objekt.
+Alla möjliga tärningslag lagras i en array med objekt - exprimentstadie
+Skapa tärningar dynamiskt inte statiskt i html - påbörjat
+

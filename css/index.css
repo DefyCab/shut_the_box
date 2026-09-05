@@ -1,4 +1,31 @@
-body {
-  margin: 0px;
-  padding: 0px;
+* {	
+	box-sizing: border-box;
 }
+
+body {
+  padding: 0px;
+  background-color: rgb(201, 209, 218);
+}
+
+.section-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 8rem;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  border: solid slategray;
+  align-items: center;
+  height: 30em;
+  width: 25em;
+  border-radius: 2%;
+  background-color: rgb(245, 245, 245, 0.75);
+}
+
+.shut-the-box-p {
+    font-size: 25px;
+}
+

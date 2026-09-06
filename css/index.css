@@ -1,10 +1,15 @@
-* {	
-	box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
 
 body {
   padding: 0px;
+  min-height: 100vh;
   background-color: rgb(201, 209, 218);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(236, 236, 238, 0.1)),
+    url(/images/jeremy-thomas-space.jpg);
+
 }
 
 .section-one {
@@ -26,6 +31,9 @@ body {
 }
 
 .shut-the-box-p {
-    font-size: 25px;
+  font-size: 25px;
 }
 
+.footer-p {
+    margin: 0;
+}

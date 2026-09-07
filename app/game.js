@@ -21,6 +21,7 @@ function renderTiles() {
     const numbers = document.createElement("button");
     numbers.classList.add("number")
     numbers.innerText = i
+    numbers.id = `tile${i}`
     numberBoard.appendChild(numbers);
   }
 }

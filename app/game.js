@@ -104,12 +104,22 @@ function removeOldDice() {
   }
 }
 
+const shutTiles = [];
+
 function shutSelectedTiles() {
-  tiles.forEach((tile) => {
-    if (tile.classList.contains("number-selected")) {
-      console.log(tile.innerHTML);
-    }
-  });
+  for (i = 0; i < 2; i++) {
+    tiles.forEach((tile) => {
+      if (tile.classList.contains("number-selected")) {
+        shutTiles[i] = tile.innerHTML;
+        discardUsedTiles(tile.id);
+      }
+    });
+  }
+}
+
+function discardUsedTiles(id) {
+  const tileToRemove = document.getElementById(`${id}`);
+  tileToRemove.classList.add("shut-tile");
 }
 
 const shutTilesButton = document.getElementById("submit-button");

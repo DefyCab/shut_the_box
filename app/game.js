@@ -34,6 +34,9 @@ const tiles = document.querySelectorAll(".number");
 let clickCounter = 0;
 
 function selectTile(tile) {
+  if (diceRolls.length < 1) {
+    return;
+  }
   if (clickCounter === 2 && !tile.classList.contains("number-selected")) {
     return;
   }
@@ -52,7 +55,7 @@ tiles.forEach((tile) => {
 
 const diceArea = document.querySelector(".dice-area");
 
-const diceRolls = [0, 0];
+const diceRolls = [];
 
 function randomizeDice() {
   diceRolls[0] = Math.floor(Math.random() * 6);

@@ -28,19 +28,20 @@ function renderTiles() {
 
 renderTiles();
 
-const tiles = Array.from(document.querySelectorAll(".number"));
-console.log(tiles);
+// Jag tänkte att en array var lättare att jobba med men går tilbaka till nodelist igen
+const tiles = document.querySelectorAll(".number");
 
-// function selectTile() {
-
-// }
+function selectTile(tile) {
+  if (tile.classList.contains("number-selected")) {
+    tile.classList.remove("number-selected");
+  } else {
+    tile.classList.add("number-selected");
+  }
+}
 
 tiles.forEach((tile) => {
-  tile.addEventListener("click", () => {
-    removeSelectedClass()
-    tile.classList.add("number-selected")
-  })
-})
+  tile.addEventListener("click", () => selectTile(tile));
+});
 
 function removeSelectedClass() {
   tiles.map((tile) => {

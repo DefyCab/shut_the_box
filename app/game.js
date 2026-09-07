@@ -19,14 +19,34 @@ const numberBoard = document.querySelector(".number-board");
 function renderTiles() {
   for (i = 1; i <= 9; i++) {
     const numbers = document.createElement("button");
-    numbers.classList.add("number")
-    numbers.innerText = i
-    numbers.id = `tile${i}`
+    numbers.classList.add("number");
+    numbers.innerText = i;
+    numbers.id = `tile${i}`;
     numberBoard.appendChild(numbers);
   }
 }
 
 renderTiles();
+
+const tiles = Array.from(document.querySelectorAll(".number"));
+console.log(tiles);
+
+// function selectTile() {
+
+// }
+
+tiles.forEach((tile) => {
+  tile.addEventListener("click", () => {
+    removeSelectedClass()
+    tile.classList.add("number-selected")
+  })
+})
+
+function removeSelectedClass() {
+  tiles.map((tile) => {
+    tile.classList.remove("number-selected");
+  });
+}
 
 const diceArea = document.querySelector(".dice-area");
 

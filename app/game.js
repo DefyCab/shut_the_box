@@ -50,12 +50,6 @@ tiles.forEach((tile) => {
   tile.addEventListener("click", () => selectTile(tile));
 });
 
-function removeSelectedClass() {
-  tiles.map((tile) => {
-    tile.classList.remove("number-selected");
-  });
-}
-
 const diceArea = document.querySelector(".dice-area");
 
 const diceRolls = [0, 0];
@@ -106,3 +100,14 @@ function removeOldDice() {
     }
   }
 }
+
+function shutSelectedTiles() {
+  tiles.forEach((tile) => {
+    if (tile.classList.contains("number-selected")) {
+      console.log(tile.innerHTML);
+    }
+  });
+}
+
+const shutTilesButton = document.getElementById("submit-button");
+shutTilesButton.addEventListener("click", shutSelectedTiles);

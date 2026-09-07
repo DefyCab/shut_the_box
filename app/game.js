@@ -14,6 +14,19 @@ const dice = [
   ],
 ];
 
+const numberBoard = document.querySelector(".number-board");
+
+function renderTiles() {
+  for (i = 1; i <= 9; i++) {
+    const numbers = document.createElement("button");
+    numbers.classList.add("number")
+    numbers.innerText = i
+    numberBoard.appendChild(numbers);
+  }
+}
+
+renderTiles();
+
 const diceArea = document.querySelector(".dice-area");
 
 const diceRolls = [0, 0];

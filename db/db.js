@@ -4,7 +4,7 @@ const version = "v1";
 const apiEndpointBase = `${baseUrl}/${version}`;
 const token = localStorage.getItem("token");
 
-export async function getRoom(id) {
+export async function getRoomById(id) {
   const response = await fetch(`${apiEndpointBase}/rooms/${id}`, {
     method: "GET",
     headers: {

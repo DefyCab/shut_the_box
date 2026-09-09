@@ -1,25 +1,34 @@
-import { getRoom } from "./db.js";
-
-export function createRoom(id) {
+export function createGameService(api) {
   return {
-    async getRoom() {
-      return await getRoom(id);
+    getRoom: async (id) => {
+      return await api.getRoomById(id);
+    },
+
+    getCurrentState: async (gameId) => {
+      return await api.getCurrentGameState(gameId);
     },
   };
 }
 
-const roomRepo = createRoom("LRJJPP");
+// export function createRoom(id) {
+//   return {
+//     async getRoom() {
+//       return await getRoom(id);
+//     },
+//   };
+// }
 
-const room = await roomRepo.getRoom();
+// const roomRepo = createRoom("LRJJPP");
 
-const [{ name }] = room.members;
+// const room = await roomRepo.getRoom();
 
-const gameRoom = {
-  roomName: room.name,
-  id: room.id,
-  name: name,
-};
+// const [{ name }] = room.members;
 
+// const gameRoom = {
+//   roomName: room.name,
+//   id: room.id,
+//   name: name,
+// };
 
 // console.log(gameRoom);
 // console.log(room);

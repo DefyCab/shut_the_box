@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+.body {
+  display: flex;
+  min-height: 100vh;
+}
 .navbar {
   display: flex;
   width: 100%;
@@ -17,6 +21,10 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+  a {
+    color: whitesmoke;
+    text-decoration: none;
+  }
 }
 
 .navbar-title {
@@ -24,4 +32,3 @@
   font-weight: light;
   font-size: 2.5rem;
 }
-

@@ -1,0 +1,9 @@
+.game-room{
+    display: flex;
+    flex-direction: column;
+    height: 20rem;
+    width: 40rem;
+    border: solid 2px slategray;
+    border-radius: 2px;
+    margin-bottom: 28vh;
+}

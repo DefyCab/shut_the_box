@@ -9,5 +9,9 @@ const state = await gameService.getCurrentState("5BN8EB");
 const main = document.querySelector(".main-container");
 const gameRoom = document.createElement("div");
 
-console.log(room);
-console.log(state);
+function createGameLobby() {
+  const main = document.querySelector(".main-container");
+  
+  const gameRoom = document.createElement("div");
+  
+}

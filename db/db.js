@@ -1,7 +1,11 @@
-export async function getRoom(id) {
-  const token = localStorage.getItem("token");
+const baseUrl = "https://api.dsvkurs.miun.se";
+const version = "v1";
 
-  const response = await fetch(`https://api.dsvkurs.miun.se/v1/rooms/${id}`, {
+const apiEndpointBase = `${baseUrl}/${version}`;
+const token = localStorage.getItem("token");
+
+export async function getRoom(id) {
+  const response = await fetch(`${apiEndpointBase}/rooms/${id}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -17,19 +21,41 @@ export async function getRoom(id) {
   return result;
 }
 
+export async function getCurrentGameState(gameCode) {
+  try {
+    const response = await fetch(`${apiEndpointBase}/games/${gameCode}/state`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Status: ${response.status}`);
+    }
+    const result = response.json();
+
+    console.log(result);
+  } catch (error) {
+    throw new Error(`Status: ${error.status}`);
+  }
+}
+
 // export async function getRoom(id) {
 //   try {
 //     const response = await fetch(`https://api.dsvkurs.miun.se/v1/rooms/${id}`, {
 //       method: "GET",
 //       headers: {
-//         Authorization: "",
+//         Authorization: `Bearer ${token}`,
 //       },
 //     });
 
 //     if (!response.ok) {
 //       throw new Error(`Status: ${response.status}`);
 //     }
-//   } catch (error) {}
+//   } catch (error) {
+//     throw new Error(`Status: ${error.}`);
+//   }
 
 //   return await response.json();
 // }

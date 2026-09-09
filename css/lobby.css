@@ -1,9 +1,26 @@
-.game-room{
-    display: flex;
-    flex-direction: column;
-    height: 20rem;
-    width: 40rem;
-    border: solid 2px slategray;
-    border-radius: 2px;
-    margin-bottom: 28vh;
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-room {
+  display: flex;
+  flex-direction: column;
+  height: 20rem;
+  width: 40rem;
+  border: solid 2px slategray;
+  border-radius: 2px;
+  box-shadow: 5px 5px 2px 2px rgba(26, 26, 26, 0.6);
+  margin-bottom: 28vh;
+}
+
+.game-room-span {
+  display: flex;
+  flex-direction: row;
+}
+
+.category {
+  font-weight: bold;
 }

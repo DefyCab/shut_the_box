@@ -9,7 +9,6 @@ body {
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(236, 236, 238, 0.1)),
     url(/images/jeremy-thomas-space.jpg);
-
 }
 
 .section-one {
@@ -27,6 +26,7 @@ body {
   height: 30em;
   width: 25em;
   border-radius: 2%;
+  box-shadow: 5px 5px 2px 2px rgba(26, 26, 26, 0.6);
   background-color: rgb(245, 245, 245, 0.75);
 }
 
@@ -35,5 +35,5 @@ body {
 }
 
 .footer-p {
-    margin: 0;
+  margin: 0;
 }

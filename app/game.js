@@ -106,15 +106,27 @@ function removeOldDice() {
 
 const shutTiles = [];
 
+function isShutValid() {
+  tiles.forEach((tile) => {
+    if (tile.classList.contains("number-selected")) {
+      shutTiles.push(Number(tile.innerHTML));
+    }
+  });
+
+  const diceSum = diceRolls[0] + diceRolls[1];
+  const tileSum = shutTiles[0] + shutTiles[1];
+
+  console.log(`"diceSum:" ${diceSum}`);
+
+  console.log(`"tileSum" ${tileSum}`);
+}
+
 function shutSelectedTiles() {
-  for (i = 0; i < 2; i++) {
-    tiles.forEach((tile) => {
-      if (tile.classList.contains("number-selected")) {
-        shutTiles[i] = tile.innerHTML;
-        discardUsedTiles(tile.id);
-      }
-    });
-  }
+  tiles.forEach((tile) => {
+    if (tile.classList.contains("number-selected")) {
+      discardUsedTiles(tile.id);
+    }
+  });
 }
 
 function discardUsedTiles(id) {
@@ -123,4 +135,4 @@ function discardUsedTiles(id) {
 }
 
 const shutTilesButton = document.getElementById("submit-button");
-shutTilesButton.addEventListener("click", shutSelectedTiles);
+shutTilesButton.addEventListener("click", isShutValid);

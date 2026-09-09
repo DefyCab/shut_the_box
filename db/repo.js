@@ -15,11 +15,29 @@ const room = await roomRepo.getRoom();
 // desctructing objects
 const [{ name }] = room.members;
 
-const gameRoom = {
-  roomName: room.name,
-  id: room.id,
-  name: name,
-};
+// const gameRoom = {
+//   roomName: room.name,
+//   id: room.id,
+//   name: name,
+// };
 
-console.log(gameRoom);
-console.log(room);
+// console.log(gameRoom);
+// console.log(room);
+
+// function gameRoom(id, roomName, name) {
+//   this.id = name;
+//   this.roomName = roomName;
+//   this.name = name;
+// }
+
+class gameRoom {
+  constructor(id, roomName, name) {
+    this.id = id;
+    this.roomName = roomName;
+    this.name = name;
+  }
+}
+
+const gameRoomOne = new gameRoom(room.name, room.id, name);
+
+console.log(gameRoomOne);

@@ -12,11 +12,13 @@ const roomRepo = createRoomRepo("LRJJPP");
 
 const room = await roomRepo.getRoom();
 
+// desctructing objects
+const [{ name }] = room.members;
+
 const gameRoom = {
   roomName: room.name,
   id: room.id,
-  name: room.members[0].name,
-  
+  name: name,
 };
 
 console.log(gameRoom);

@@ -1,5 +1,4 @@
 import { getRoom } from "./db.js";
-import { getCurrentGameState } from "./db.js";
 
 export function createRoom(id) {
   return {
@@ -20,6 +19,7 @@ const gameRoom = {
   id: room.id,
   name: name,
 };
+
 
 // console.log(gameRoom);
 // console.log(room);

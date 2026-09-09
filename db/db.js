@@ -21,9 +21,9 @@ export async function getRoom(id) {
   return result;
 }
 
-export async function getCurrentGameState(gameCode) {
+export async function getCurrentGameState(gameId) {
   try {
-    const response = await fetch(`${apiEndpointBase}/games/${gameCode}/state`, {
+    const response = await fetch(`${apiEndpointBase}/games/${gameId}/state`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export async function getCurrentGameState(gameCode) {
     }
     const result = response.json();
 
-    console.log(result);
+    return result;
   } catch (error) {
     throw new Error(`Status: ${error.status}`);
   }

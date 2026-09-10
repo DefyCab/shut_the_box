@@ -93,12 +93,21 @@ function rollOneDie() {
   randomizeDice();
   diceRolls.pop();
   showDice();
+  rollBoth.disabled = true;
+  rollOne.disabled = true;
+  rollBoth.classList.add("disabled");
+  rollOne.classList.add("disabled");
 }
 
 function rollBothDice() {
+  debugger;
   removeOldDice();
   assingDiceRolls();
   showDice();
+  rollBoth.disabled = true;
+  rollOne.disabled = true;
+  rollBoth.classList.add("disabled");
+  rollOne.classList.add("disabled");
 }
 
 function removeOldDice() {

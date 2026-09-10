@@ -355,3 +355,7 @@ body::before {
     transform 0.15s ease,
     box-shadow 0.15s ease;
 }
+
+.disabled {
+  cursor: not-allowed;
+}

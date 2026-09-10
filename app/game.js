@@ -6,11 +6,9 @@ const gameService = createGameService(api);
 const state = await gameService.getCurrentState("5BN8EB");
 
 const activePlayer = state.currentPlayerName;
-const activePlayerSpan = document.getElementById("active-player");
+const activePlayerP = document.getElementById("active-player");
 
-console.log(activePlayer);
-
-activePlayerSpan.innerHTML = `<p>${activePlayer}</p>`;
+activePlayerP.innerText = `${activePlayer}`;
 
 const dice = [
   ["center"],

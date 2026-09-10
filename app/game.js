@@ -1,3 +1,10 @@
+import * as api from "../db/db.js";
+import { createGameService } from "../db/service.js";
+
+const gameService = createGameService(api);
+
+const state = await gameService.getCurrentState("5BN8EB");
+
 const dice = [
   ["center"],
   ["top-left", "bottom-right"],
@@ -17,7 +24,7 @@ const dice = [
 const numberBoard = document.querySelector(".number-board");
 
 function renderTiles() {
-  for (i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 9; i++) {
     const numbers = document.createElement("button");
     numbers.classList.add("number");
     numbers.innerText = i;
@@ -57,15 +64,15 @@ const diceArea = document.querySelector(".dice-area");
 
 const diceRolls = [];
 
-function randomizeDice() {
-  diceRolls[0] = Math.floor(Math.random() * 6);
-  diceRolls[1] = Math.floor(Math.random() * 6);
+function assingDiceRolls() {
+  diceRolls[0] = state.currentDiceRoll.die1 - 1;
+  diceRolls[1] = state.currentDiceRoll.die2 - 1;
 }
 
 function showDice() {
-  for (j = 0; j < diceRolls.length; j++) {
+  for (let j = 0; j < diceRolls.length; j++) {
     const dieBox = document.createElement("div");
-    for (i = 0; i <= diceRolls[j]; i++) {
+    for (let i = 0; i <= diceRolls[j]; i++) {
       const cspan = document.createElement("span");
       cspan.classList.add("pip", dice[diceRolls[j]][i]);
       dieBox.appendChild(cspan);
@@ -90,7 +97,7 @@ function rollOneDie() {
 
 function rollBothDice() {
   removeOldDice();
-  randomizeDice();
+  assingDiceRolls();
   showDice();
 }
 
@@ -98,7 +105,7 @@ function removeOldDice() {
   const dice = document.querySelectorAll(".die");
   const diceArea = document.querySelector(".dice-area");
   if (dice.length != 0) {
-    for (i = 0; i < dice.length; i++) {
+    for (let i = 0; i < dice.length; i++) {
       diceArea.removeChild(dice[i]);
     }
   }

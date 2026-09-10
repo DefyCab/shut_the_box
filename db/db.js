@@ -41,3 +41,22 @@ export async function getCurrentGameState(gameId) {
     throw new Error(`Status: ${error.status}`);
   }
 }
+
+export async function getDiceRoll(gameId) {
+  try {
+    const response = await fetch(`${apiEndpointBase}/games/${gameId}/roll`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(`Status: ${error.status}`);
+  }
+}

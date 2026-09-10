@@ -6,9 +6,6 @@ const gameService = createGameService(api);
 const room = await gameService.getRoom("LRJJPP");
 const state = await gameService.getCurrentState("5BN8EB");
 
-const main = document.querySelector(".main-container");
-const gameRoom = document.createElement("div");
-
 console.log(room);
 console.log(state);
 
@@ -40,9 +37,10 @@ function createGameLobby() {
 
 createGameLobby();
 
+
 const goToGameButton = document.querySelector("#open-game-btn");
 goToGameButton.addEventListener("click", goToGame);
 
 function goToGame() {
-  window.location.href = "game.html?LRJJPP";
+  window.location.href = "game.html";
 }

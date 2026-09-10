@@ -7,5 +7,9 @@ export function createGameService(api) {
     getCurrentState: async (gameId) => {
       return await api.getCurrentGameState(gameId);
     },
+
+    rollDice: async (gameId) => {
+      return await api.getDiceRoll(gameId);
+    },
   };
 }

@@ -5,6 +5,13 @@ const gameService = createGameService(api);
 
 const state = await gameService.getCurrentState("5BN8EB");
 
+const activePlayer = state.currentPlayerName;
+const activePlayerSpan = document.getElementById("active-player");
+
+console.log(activePlayer);
+
+activePlayerSpan.innerHTML = `<p>${activePlayer}</p>`;
+
 const dice = [
   ["center"],
   ["top-left", "bottom-right"],

@@ -8,12 +8,13 @@
 .game-room {
   display: flex;
   flex-direction: column;
-  height: 20rem;
-  width: 40rem;
+  height: 210px;
+  width: 400px;
   border: solid 2px slategray;
   border-radius: 2px;
   box-shadow: 5px 5px 2px 2px rgba(26, 26, 26, 0.6);
   margin-bottom: 28vh;
+  padding-left: 15px;
 }
 
 .game-room-span {
@@ -23,4 +24,19 @@
 
 .category {
   font-weight: bold;
+}
+
+.open-game {
+  background-color: lightblue;
+  color: black;
+  padding: 4px;
+  border: solid 1px slategrey;
+  border-radius: 4px;
+  height: 40px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.open-game:hover {
+  background-color: rgb(185, 233, 249);
 }

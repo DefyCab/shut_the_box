@@ -29,9 +29,9 @@ function createGameLobby() {
   const playerOne = document.createElement("p");
   const nextPlayer = document.createElement("p");
 
-  gameRoomName.innerHTML = gameRoom.room;
-  playerOne.innerHTML = gameRoom.playerOne;
-  nextPlayer.innerHTML = gameRoom.nextPlayer;
+  gameRoomName.innerText = gameRoom.room;
+  playerOne.innerText = gameRoom.playerOne;
+  nextPlayer.innerText = gameRoom.nextPlayer;
 
   gameRoomNameSpan.appendChild(gameRoomName);
   playerOneSpan.appendChild(playerOne);
@@ -39,3 +39,10 @@ function createGameLobby() {
 }
 
 createGameLobby();
+
+const goToGameButton = document.querySelector("#open-game-btn");
+goToGameButton.addEventListener("click", goToGame);
+
+function goToGame() {
+  window.location.href = "game.html?LRJJPP";
+}

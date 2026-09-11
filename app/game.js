@@ -1,30 +1,10 @@
+import state from "../mock/state.js";
 // import * as api from "../db/db.js";
 // import { createGameService } from "../db/service.js";
 
 // const gameService = createGameService(api);
 
 // const state = await gameService.getCurrentState("5BN8EB");
-
-import state from "../mock/state.js";
-
-console.log(state);
-
-//exprimenterade med spread operator men hittade fla() som fungerade bättre eftersom validMoves arrayen från servern inte
-//alltid har samma längd
-
-// const validMovesUnStruct = state.validMoves;
-
-const validMoves = state.validMoves;
-const validMovesCombined = validMoves.flat();
-
-const [{ currentScore }] = state.players;
-
-const activePlayer = state.currentPlayerName;
-const activePlayerP = document.getElementById("active-player");
-const currentScoreP = document.getElementById("current-score");
-
-currentScoreP.innerText = `${currentScore}`;
-activePlayerP.innerText = `${activePlayer}`;
 
 const dice = [
   ["center"],
@@ -49,14 +29,25 @@ function renderTiles() {
     const numbers = document.createElement("button");
     numbers.classList.add("number");
     numbers.innerText = i;
-    numbers.id = `tile${i}`;
+    numbers.id = `${i}`;
     numberBoard.appendChild(numbers);
   }
 }
 
 renderTiles();
 
-// Jag tänkte att en array var lättare att jobba med men går tilbaka till nodelist igen
+const validMoves = state.validMoves;
+const validMovesCombined = validMoves.flat();
+
+const [{ currentScore }] = state.players;
+const currentScoreP = document.getElementById("current-score");
+
+const activePlayer = state.currentPlayerName;
+const activePlayerP = document.getElementById("active-player");
+
+currentScoreP.innerText = `${currentScore}`;
+activePlayerP.innerText = `${activePlayer}`;
+
 const tiles = document.querySelectorAll(".number");
 
 let clickCounter = 0;
@@ -76,6 +67,19 @@ function selectTile(tile) {
     clickCounter++;
   }
 }
+
+const allMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+function blockTilesNotValidMoves() {
+  validMovesCombined.forEach((move) => {
+    tiles.classList.add("not-allowed");
+  });
+}
+// tiles.forEach((tile) => {
+//   if (tile.classList.contains("not-allowed")) {
+//   }
+// });
+blockTilesNotValidMoves();
 
 tiles.forEach((tile) => {
   tile.addEventListener("click", () => selectTile(tile));

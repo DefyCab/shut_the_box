@@ -6,6 +6,11 @@ h1 {
   color: #7d45ff;
 }
 
+.current-score-active-player {
+   color: gold;
+   font-weight: bold;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -282,7 +287,7 @@ body::before {
 .roll-button {
   border: 2px solid whitesmoke;
   background-color: #071b45;
-  color: rgba(135, 38, 255, 0.9);
+  color: rgba(214, 187, 248, 0.9);
   padding-right: 1.5rem;
   padding-left: 1.5rem;
   padding-top: 1rem;

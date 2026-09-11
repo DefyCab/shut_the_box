@@ -1,15 +1,29 @@
-import * as api from "../db/db.js";
-import { createGameService } from "../db/service.js";
+// import * as api from "../db/db.js";
+// import { createGameService } from "../db/service.js";
 
-const gameService = createGameService(api);
+// const gameService = createGameService(api);
 
-const state = await gameService.getCurrentState("5BN8EB");
+// const state = await gameService.getCurrentState("5BN8EB");
+
+import state from "../mock/state.js";
 
 console.log(state);
 
+//exprimenterade med spread operator men hittade fla() som fungerade bättre eftersom validMoves arrayen från servern inte
+//alltid har samma längd
+
+// const validMovesUnStruct = state.validMoves;
+
+const validMoves = state.validMoves;
+const validMovesCombined = validMoves.flat();
+
+const [{ currentScore }] = state.players;
+
 const activePlayer = state.currentPlayerName;
 const activePlayerP = document.getElementById("active-player");
+const currentScoreP = document.getElementById("current-score");
 
+currentScoreP.innerText = `${currentScore}`;
 activePlayerP.innerText = `${activePlayer}`;
 
 const dice = [
@@ -51,7 +65,7 @@ function selectTile(tile) {
   if (diceRolls.length < 1) {
     return;
   }
-  if (clickCounter === 2 && !tile.classList.contains("number-selected")) {
+  if (clickCounter === 4 && !tile.classList.contains("number-selected")) {
     return;
   }
   if (tile.classList.contains("number-selected")) {
@@ -75,8 +89,6 @@ function assingDiceRolls() {
   diceRolls[0] = state.currentDiceRoll.die1;
   diceRolls[1] = state.currentDiceRoll.die2;
 }
-
-console.log(diceRolls);
 
 function showDice() {
   for (let j = 0; j < diceRolls.length; j++) {
@@ -110,6 +122,8 @@ function rollOneDie() {
 }
 
 function rollBothDice() {
+  // if (!state.currentDiceRoll === null) {
+  //   gameService.rollDice("5BN8EB");
   removeOldDice();
   assingDiceRolls();
   showDice();
@@ -117,6 +131,9 @@ function rollBothDice() {
   rollOne.disabled = true;
   rollBoth.classList.add("disabled");
   rollOne.classList.add("disabled");
+  // }
+  // console.log("Tärningarna är redan slagna");
+  // return;
 }
 
 function removeOldDice() {
@@ -131,11 +148,7 @@ function removeOldDice() {
 
 const shutTiles = [];
 
-// TODO: Check for valid moves when click "shut selected tiles"
-
-function isShutValid() {
-  return;
-}
+function isShutValid() {}
 
 function sumOfSelectedTiles() {
   tiles.forEach((tile) => {
@@ -151,21 +164,15 @@ function sumOfSelectedTiles() {
 
   return sumOfSelectedTiles;
 }
-console.log(sumOfSelectedTiles());
 
-// function isShutValid() {
-//   tiles.forEach((tile) => {
-//     if (tile.classList.contains("number-selected")) {
-//       shutTiles.push(Number(tile.innerHTML));
-//     }
-//   });
+// TODO: låt [valid-moves] göra att brickor som inte är i spel blir mörkare / oklickbara
+// Jämför om markerade brickors totala summa motsvarar summan av tärningarna
+// Gör en ny klass som visar markerad bricka genom ändra färg på border
+// Aktivera knappar
+// använd tile.id för att disabla knappar från validmoves listan
 
-//   const diceSum = diceRolls[0] + diceRolls[1];
-//   const tileSum = shutTiles[0] + shutTiles[1];
-
-//   console.log(`"diceSum:" ${diceSum}`);
-
-//   console.log(`"tileSum" ${tileSum}`);
+// function submitMove() {
+//   gameService.submitMoves(validatedTile[0], validatedTile[1]);
 // }
 
 function shutSelectedTiles() {

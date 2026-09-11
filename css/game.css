@@ -84,14 +84,10 @@ body::before {
 
 .game-header {
   display: flex;
-
   justify-content: space-between;
   align-items: center;
-
   gap: 10px;
-
   margin-bottom: 25px;
-
   font-size: 30px;
 }
 
@@ -235,14 +231,10 @@ body::before {
 
 .pip {
   position: absolute;
-
   width: 20px;
   height: 20px;
-
   border-radius: 50%;
-
   background: #111;
-
   box-shadow:
     inset 2px 2px 3px rgba(255, 255, 255, 0.2),
     0 1px 2px rgba(0, 0, 0, 0.5);
@@ -316,24 +308,25 @@ body::before {
 }
 
 .number-selected {
+  font-size: 50px;
+  border: solid 6px rgb(57, 3, 35);
+  opacity: calc(0.8);
+}
+
+.number-not-selectable {
   color: white;
   font-size: 60px;
   border: solid 3px slategray;
-  opacity: calc(0.6);
+  opacity: calc(0.4);
 }
 
 .shut-tile {
   flex: 1;
-
   height: 180px;
-
   border: 2px solid #219cff;
   border-radius: 25px;
-
   color: none;
-
   font-size: 0px;
-
   background:
     radial-gradient(
       circle at 50% 80%,
@@ -354,8 +347,16 @@ body::before {
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease;
+
+  cursor: not-allowed;
 }
 
 .disabled {
   cursor: not-allowed;
+}
+
+.current-score-active-player {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
 }

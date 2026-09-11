@@ -1,10 +1,13 @@
-import * as api from "./db.js";
-import { createGameService } from "./service.js";
+import room from "../mock/room.js"
+import state from "../mock/state.js"
 
-const gameService = createGameService(api);
+// import * as api from "./db.js";
+// import { createGameService } from "./service.js";
 
-const room = await gameService.getRoom("LRJJPP");
-const state = await gameService.getCurrentState("5BN8EB");
+// const gameService = createGameService(api);
+
+// const room = await gameService.getRoom("LRJJPP");
+// const state = await gameService.getCurrentState("5BN8EB");
 
 console.log(room);
 console.log(state);

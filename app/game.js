@@ -5,6 +5,8 @@ const gameService = createGameService(api);
 
 const state = await gameService.getCurrentState("5BN8EB");
 
+console.log(state);
+
 const activePlayer = state.currentPlayerName;
 const activePlayerP = document.getElementById("active-player");
 
@@ -70,16 +72,19 @@ const diceArea = document.querySelector(".dice-area");
 const diceRolls = [];
 
 function assingDiceRolls() {
-  diceRolls[0] = state.currentDiceRoll.die1 - 1;
-  diceRolls[1] = state.currentDiceRoll.die2 - 1;
+  diceRolls[0] = state.currentDiceRoll.die1;
+  diceRolls[1] = state.currentDiceRoll.die2;
 }
+
+console.log(diceRolls);
 
 function showDice() {
   for (let j = 0; j < diceRolls.length; j++) {
     const dieBox = document.createElement("div");
-    for (let i = 0; i <= diceRolls[j]; i++) {
+    const diceRollsCountDown = [diceRolls[0] - 1, diceRolls[1] - 1];
+    for (let i = 0; i < diceRolls[j]; i++) {
       const cspan = document.createElement("span");
-      cspan.classList.add("pip", dice[diceRolls[j]][i]);
+      cspan.classList.add("pip", dice[diceRollsCountDown[j]][i]);
       dieBox.appendChild(cspan);
     }
     dieBox.classList.add("die");
@@ -105,7 +110,6 @@ function rollOneDie() {
 }
 
 function rollBothDice() {
-  debugger;
   removeOldDice();
   assingDiceRolls();
   showDice();
@@ -127,20 +131,42 @@ function removeOldDice() {
 
 const shutTiles = [];
 
+// TODO: Check for valid moves when click "shut selected tiles"
+
 function isShutValid() {
+  return;
+}
+
+function sumOfSelectedTiles() {
   tiles.forEach((tile) => {
     if (tile.classList.contains("number-selected")) {
       shutTiles.push(Number(tile.innerHTML));
     }
   });
 
-  const diceSum = diceRolls[0] + diceRolls[1];
-  const tileSum = shutTiles[0] + shutTiles[1];
+  const sumOfSelectedTiles = shutTiles.reduce(
+    (accumulator, current) => accumulator + current,
+    0,
+  );
 
-  console.log(`"diceSum:" ${diceSum}`);
-
-  console.log(`"tileSum" ${tileSum}`);
+  return sumOfSelectedTiles;
 }
+console.log(sumOfSelectedTiles());
+
+// function isShutValid() {
+//   tiles.forEach((tile) => {
+//     if (tile.classList.contains("number-selected")) {
+//       shutTiles.push(Number(tile.innerHTML));
+//     }
+//   });
+
+//   const diceSum = diceRolls[0] + diceRolls[1];
+//   const tileSum = shutTiles[0] + shutTiles[1];
+
+//   console.log(`"diceSum:" ${diceSum}`);
+
+//   console.log(`"tileSum" ${tileSum}`);
+// }
 
 function shutSelectedTiles() {
   tiles.forEach((tile) => {

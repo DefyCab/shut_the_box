@@ -7,8 +7,8 @@ h1 {
 }
 
 .current-score-active-player {
-   color: gold;
-   font-weight: bold;
+  color: gold;
+  font-weight: bold;
 }
 
 body {
@@ -187,19 +187,13 @@ body::before {
 
 .dice-area {
   display: flex;
-
-  justify-content: center;
+justify-content: center;
   align-items: center;
-
   gap: 40px;
-
   height: 200px;
-
   margin-top: 20px;
-
   border: 2px solid #168cff;
   border-radius: 25px;
-
   background: linear-gradient(
     145deg,
     rgba(5, 25, 60, 0.9),
@@ -217,16 +211,11 @@ body::before {
 
 .die {
   position: relative;
-
   width: 130px;
   height: 130px;
-
   border-radius: 18px;
-
   background: linear-gradient(145deg, #ffffff, #e7e7e7);
-
   border: 1px solid #bbb;
-
   box-shadow:
     0 5px 10px rgba(0, 0, 0, 0.5),
     inset 0 0 8px rgba(0, 0, 0, 0.08);
@@ -260,7 +249,6 @@ body::before {
 .center {
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -50%);
 }
 
@@ -314,16 +302,9 @@ body::before {
 
 .number-selected {
   font-size: 50px;
-  border: solid 6px rgb(57, 3, 35);
-  opacity: calc(0.8);
+  border: solid 6px rgb(166, 39, 115);
 }
 
-.number-not-selectable {
-  color: white;
-  font-size: 60px;
-  border: solid 3px slategray;
-  opacity: calc(0.4);
-}
 
 .shut-tile {
   flex: 1;
@@ -333,35 +314,46 @@ body::before {
   color: none;
   font-size: 0px;
   background:
-    radial-gradient(
-      circle at 50% 80%,
-      rgba(135, 38, 255, 0.5),
-      transparent 55%
+  radial-gradient(
+    circle at 50% 80%,
+    rgba(135, 38, 255, 0.5),
+    transparent 55%
     ),
     radial-gradient(
       circle at 30% 20%,
       rgba(30, 150, 255, 0.2),
       transparent 50%
-    ),
-    #091b4a;
-
-  box-shadow:
-    0 0 10px rgba(0, 150, 255, 0.4),
-    inset 0 0 20px rgba(50, 80, 255, 0.15);
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-
-  cursor: not-allowed;
-}
-
-.disabled {
-  cursor: not-allowed;
-}
-
-.current-score-active-player {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-}
+      ),
+      #091b4a;
+      
+      box-shadow:
+      0 0 10px rgba(0, 150, 255, 0.4),
+      inset 0 0 20px rgba(50, 80, 255, 0.15);
+      
+      transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+      
+      cursor: not-allowed;
+    }
+    
+    .disabled {
+      cursor: not-allowed;
+    }
+    
+    .current-score-active-player {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+    }
+    
+    .not-allowed {
+      cursor: not-allowed
+    }
+    
+    .number-not-selectable {
+      color: white;
+      font-size: 60px;
+      border: solid 3px slategray;
+      opacity: calc(0.4);
+    }

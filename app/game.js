@@ -71,14 +71,23 @@ function selectTile(tile) {
 const allMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 function blockTilesNotValidMoves() {
-  validMovesCombined.forEach((move) => {
-    tiles.classList.add("not-allowed");
+  // ta bort valid moves form allmoves array
+  let noneValidMoves = [];
+
+  allMoves.map((number) => {
+    if (!validMovesCombined.includes(number)) {
+      noneValidMoves = [...noneValidMoves, number];
+    }
+  });
+  console.log(noneValidMoves);
+
+  tiles.forEach((tile) => {
+    if (noneValidMoves.includes(Number(tile.id))) {
+      tile.classList.add("number-not-selectable");
+    }
   });
 }
-// tiles.forEach((tile) => {
-//   if (tile.classList.contains("not-allowed")) {
-//   }
-// });
+
 blockTilesNotValidMoves();
 
 tiles.forEach((tile) => {

@@ -1,14 +1,9 @@
-const state = {
+const afterMove = {
   gameCode: "D48VZ7",
   roomCode: "EDZH7Z",
-  updateReason: "DiceRolled",
-  currentDiceRoll: {
-    die1: 2,
-    die2: 3,
-    diceCount: 2,
-    total: 5,
-  },
-  validMoves: [[2, 3], [1, 4], [5]],
+  updateReason: "StateRequested",
+  currentDiceRoll: null,
+  validMoves: [],
   rules: {
     isMultiplayer: false,
     hasTurnTimer: false,
@@ -31,12 +26,12 @@ const state = {
       hasLost: false,
       hasLeft: false,
       exitReason: null,
-      currentScore: 45,
+      currentScore: 40,
       turnDeadlineUtc: null,
-      openNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      openNumbers: [1, 4, 5, 6, 7, 8, 9],
     },
   ],
   spectators: [],
 };
 
-export default state;
+export default afterMove

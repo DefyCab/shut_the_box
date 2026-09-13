@@ -187,7 +187,7 @@ body::before {
 
 .dice-area {
   display: flex;
-justify-content: center;
+  justify-content: center;
   align-items: center;
   gap: 40px;
   height: 200px;
@@ -305,7 +305,6 @@ justify-content: center;
   border: solid 6px rgb(166, 39, 115);
 }
 
-
 .shut-tile {
   flex: 1;
   height: 180px;
@@ -314,46 +313,46 @@ justify-content: center;
   color: none;
   font-size: 0px;
   background:
-  radial-gradient(
-    circle at 50% 80%,
-    rgba(135, 38, 255, 0.5),
-    transparent 55%
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(135, 38, 255, 0.5),
+      transparent 55%
     ),
     radial-gradient(
       circle at 30% 20%,
       rgba(30, 150, 255, 0.2),
       transparent 50%
-      ),
-      #091b4a;
-      
-      box-shadow:
-      0 0 10px rgba(0, 150, 255, 0.4),
-      inset 0 0 20px rgba(50, 80, 255, 0.15);
-      
-      transition:
-      transform 0.15s ease,
-      box-shadow 0.15s ease;
-      
-      cursor: not-allowed;
-    }
-    
-    .disabled {
-      cursor: not-allowed;
-    }
-    
-    .current-score-active-player {
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-    }
-    
-    .not-allowed {
-      cursor: not-allowed
-    }
-    
-    .number-not-selectable {
-      color: white;
-      font-size: 60px;
-      border: solid 3px slategray;
-      opacity: calc(0.4);
-    }
+    ),
+    #091b4a;
+
+  box-shadow:
+    0 0 10px rgba(0, 150, 255, 0.4),
+    inset 0 0 20px rgba(50, 80, 255, 0.15);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  cursor: not-allowed;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.current-score-active-player {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
+.number-not-selectable {
+  color: white;
+  font-size: 60px;
+  border: solid 3px slategray;
+  opacity: calc(0.4);
+}

@@ -1,15 +1,19 @@
 export function createGameService(api) {
   return {
     getRoom: async (id) => {
-      return await api.getRoomById(id);
+      return await api.getRoom(id);
     },
 
-    getCurrentState: async (gameId) => {
-      return await api.getCurrentGameState(gameId);
+    getCurrentState: async (id) => {
+      return await api.getCurrentState(id);
     },
 
-    rollDice: async (gameId) => {
-      return await api.getDiceRoll(gameId);
+    rollDice: async (id) => {
+      return await api.rollDice(id);
+    },
+
+    submitMove: async (id, move) => {
+      return await api.submitMove(id, move);
     },
   };
 }

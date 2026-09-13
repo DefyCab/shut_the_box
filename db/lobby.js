@@ -1,5 +1,5 @@
-import room from "../mock/room.js"
-import state from "../mock/state.js"
+import room from "../mock/room.js";
+import state from "../mock/state.js";
 
 // import * as api from "./db.js";
 // import { createGameService } from "./service.js";
@@ -39,7 +39,6 @@ function createGameLobby() {
 }
 
 createGameLobby();
-
 
 const goToGameButton = document.querySelector("#open-game-btn");
 goToGameButton.addEventListener("click", goToGame);

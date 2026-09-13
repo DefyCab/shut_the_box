@@ -49,7 +49,6 @@ currentScoreP.innerText = `${currentScore}`;
 activePlayerP.innerText = `${activePlayer}`;
 
 const tiles = document.querySelectorAll(".number");
-
 let clickCounter = 0;
 
 function selectTile(tile) {
@@ -79,7 +78,6 @@ function blockTilesNotValidMoves() {
       noneValidMoves = [...noneValidMoves, number];
     }
   });
-  console.log(noneValidMoves);
 
   tiles.forEach((tile) => {
     if (noneValidMoves.includes(Number(tile.id))) {
@@ -87,8 +85,6 @@ function blockTilesNotValidMoves() {
     }
   });
 }
-
-blockTilesNotValidMoves();
 
 tiles.forEach((tile) => {
   tile.addEventListener("click", () => selectTile(tile));
@@ -137,9 +133,9 @@ function rollOneDie() {
 function rollBothDice() {
   // if (!state.currentDiceRoll === null) {
   //   gameService.rollDice("5BN8EB");
-  removeOldDice();
   assingDiceRolls();
   showDice();
+  blockTilesNotValidMoves();
   rollBoth.disabled = true;
   rollOne.disabled = true;
   rollBoth.classList.add("disabled");
@@ -161,12 +157,27 @@ function removeOldDice() {
 
 const shutTiles = [];
 
-function isShutValid() {}
+function isShutValid() {
+  console.log(sumOfSelectedTiles());
+  shutSelectedTiles();
+  openAllRemainingTilesForSelection();
+  setTimeout(() => {
+    removeOldDice();
+  }, 1500);
+}
+
+function openAllRemainingTilesForSelection() {
+  tiles.forEach((tile) => {
+    if (tile.classList.contains("number-not-selectable")) {
+      tile.classList.remove("number-not-selectable");
+    }
+  });
+}
 
 function sumOfSelectedTiles() {
   tiles.forEach((tile) => {
     if (tile.classList.contains("number-selected")) {
-      shutTiles.push(Number(tile.innerHTML));
+      shutTiles.push(Number(tile.innerText));
     }
   });
 
@@ -176,6 +187,12 @@ function sumOfSelectedTiles() {
   );
 
   return sumOfSelectedTiles;
+}
+
+function toggleShutSelectedTilesButton() {
+  if (!state.updateReason === "DiceRolled") {
+    shutTilesButton.disabled;
+  }
 }
 
 // TODO: låt [valid-moves] göra att brickor som inte är i spel blir mörkare / oklickbara

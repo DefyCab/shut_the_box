@@ -1,3 +1,4 @@
+import move from "../mock/move.js";
 import state from "../mock/state.js";
 // import * as api from "../db/db.js";
 // import { createGameService } from "../db/service.js";
@@ -133,6 +134,9 @@ function rollOneDie() {
 function rollBothDice() {
   // if (!state.currentDiceRoll === null) {
   //   gameService.rollDice("5BN8EB");
+  // if (!state.currentDiceRoll === null) {
+  //   gameService.rollDice("5BN8EB");
+  console.log("click")
   assingDiceRolls();
   showDice();
   blockTilesNotValidMoves();
@@ -165,8 +169,6 @@ function isShutValid() {
   const sumDice = sumOfDiceRolls();
   const sumTiles = sumOfSelectedTiles();
 
-  console.log(diceRolls);
-  console.log(shutTiles);
   if (sumDice !== sumTiles) {
     //TODO: ersätt med modal
     console.log("Inte ett giltigt drag");
@@ -174,8 +176,14 @@ function isShutValid() {
     return;
   }
 
+  // const move = gameService.submitMove(`${gameCode}`, {
+  //   selectedNumbers: [`${shutTiles}`],
+  // });
+  const [{ currentScore }] = move.players;
+  currentScoreP.innerText = `${currentScore}`;
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
+  rollBoth.classList.remove("disabled");
   setTimeout(() => {
     removeOldDice();
   }, 1500);

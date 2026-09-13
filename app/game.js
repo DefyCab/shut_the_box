@@ -155,10 +155,25 @@ function removeOldDice() {
   }
 }
 
-const shutTiles = [];
+let shutTiles = [];
+
+function sumOfDiceRolls() {
+  return diceRolls.reduce((accumulator, current) => accumulator + current, 0);
+}
 
 function isShutValid() {
-  console.log(sumOfSelectedTiles());
+  const sumDice = sumOfDiceRolls();
+  const sumTiles = sumOfSelectedTiles();
+
+  console.log(diceRolls);
+  console.log(shutTiles);
+  if (sumDice !== sumTiles) {
+    //TODO: ersätt med modal
+    console.log("Inte ett giltigt drag");
+    shutTiles = [];
+    return;
+  }
+
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
   setTimeout(() => {
@@ -189,17 +204,11 @@ function sumOfSelectedTiles() {
   return sumOfSelectedTiles;
 }
 
-function toggleShutSelectedTilesButton() {
-  if (!state.updateReason === "DiceRolled") {
-    shutTilesButton.disabled;
-  }
-}
-
-// TODO: låt [valid-moves] göra att brickor som inte är i spel blir mörkare / oklickbara
-// Jämför om markerade brickors totala summa motsvarar summan av tärningarna
-// Gör en ny klass som visar markerad bricka genom ändra färg på border
-// Aktivera knappar
-// använd tile.id för att disabla knappar från validmoves listan
+// function toggleShutSelectedTilesButton() {
+//   if (!state.updateReason === "DiceRolled") {
+//     shutTilesButton.disabled;
+//   }
+// }
 
 // function submitMove() {
 //   gameService.submitMoves(validatedTile[0], validatedTile[1]);

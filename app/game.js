@@ -136,7 +136,7 @@ function rollBothDice() {
   //   gameService.rollDice("5BN8EB");
   // if (!state.currentDiceRoll === null) {
   //   gameService.rollDice("5BN8EB");
-  console.log("click")
+  console.log("click");
   assingDiceRolls();
   showDice();
   blockTilesNotValidMoves();
@@ -187,6 +187,7 @@ function isShutValid() {
   setTimeout(() => {
     removeOldDice();
   }, 1500);
+  rollBoth.disabled = false;
 }
 
 function openAllRemainingTilesForSelection() {

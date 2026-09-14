@@ -102,9 +102,7 @@ body::before {
 
 .active-player {
   color: #7d45ff;
-
   font-weight: bold;
-
   text-shadow: 0 0 10px rgba(130, 70, 255, 0.7);
 }
 
@@ -118,11 +116,8 @@ body::before {
 
 .number-board {
   display: flex;
-
   gap: 16px;
-
   padding: 0;
-
   width: 100%;
 }
 
@@ -355,4 +350,26 @@ body::before {
   font-size: 60px;
   border: solid 3px slategray;
   opacity: calc(0.4);
+}
+
+.dialog {
+  background-color: whitesmoke;
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  margin: 0px;
+  padding: 0px;
+  border: solid 6px purple;
+  width: 30%;
+  height: 15%;
+  border-radius: 6px;
+  font-weight: normal;
+  font-size: larger;
+  gap: 5px;
+}
+
+.dialog-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

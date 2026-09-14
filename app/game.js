@@ -132,11 +132,8 @@ function rollOneDie() {
 }
 
 function rollBothDice() {
-  // if (!state.currentDiceRoll === null) {
-  //   gameService.rollDice("5BN8EB");
-  // if (!state.currentDiceRoll === null) {
-  //   gameService.rollDice("5BN8EB");
-  console.log("click");
+  // if (state.currentDiceRoll === null) {
+  // gameService.rollDice("5BN8EB");
   assingDiceRolls();
   showDice();
   blockTilesNotValidMoves();
@@ -145,7 +142,15 @@ function rollBothDice() {
   rollBoth.classList.add("disabled");
   rollOne.classList.add("disabled");
   // }
-  // console.log("Tärningarna är redan slagna");
+
+  // const gameBoard = document.querySelector(".game-board");
+  // const dialog = document.createElement("dialog");
+  // dialog.classList.add("dialog");
+  // gameBoard.appendChild(dialog);
+  // const p = document.createElement("p");
+  // p.innerText = "Tärningarna är redan slagna";
+  // dialog.appendChild(p);
+  // dialog.open = true;
   // return;
 }
 
@@ -170,10 +175,40 @@ function isShutValid() {
   const sumTiles = sumOfSelectedTiles();
 
   if (sumDice !== sumTiles) {
-    //TODO: ersätt med modal
-    console.log("Inte ett giltigt drag");
+    const gameBoard = document.querySelector(".game-board");
+    const dialog = document.createElement("dialog");
+    const divOne = document.createElement("div");
+    const divTwo = document.createElement("div");
+    const closeButton = document.createElement("button");
+    const p = document.createElement("p");
+
+    dialog.classList.add("dialog");
+    closeButton.classList.add("close-button");
+    divOne.classList.add("dialog-container")
+    divTwo.classList.add("dialog-container")
+
+    p.innerText = "Du måste göra ett giltigt drag!";
+    closeButton.innerText = "x";
+
+    gameBoard.appendChild(dialog);
+    dialog.appendChild(divOne);
+    divOne.appendChild(p);
+    dialog.appendChild(divTwo);
+    divTwo.appendChild(closeButton);
+
+    dialog.open = true;
+    closeButton.addEventListener("click", () => {
+      dialog.close();
+    });
+
     shutTiles = [];
     return;
+  }
+
+  function closeDialog(dialog) {
+    dialog.addEventListener("click", () => {
+      dialog.close = true;
+    });
   }
 
   // const move = gameService.submitMove(`${gameCode}`, {

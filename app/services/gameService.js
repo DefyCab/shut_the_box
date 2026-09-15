@@ -1,9 +1,5 @@
 export function createGameService(api) {
   return {
-    getRoom: async (id) => {
-      return await api.getRoom(id);
-    },
-
     getCurrentState: async (id) => {
       return await api.getCurrentState(id);
     },

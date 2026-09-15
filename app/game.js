@@ -1,5 +1,6 @@
 import move from "../mock/move.js";
 import state from "../mock/state.js";
+import { Modal } from "../app/components/modal.js";
 // import * as api from "../db/db.js";
 // import { createGameService } from "../db/service.js";
 
@@ -175,40 +176,9 @@ function isShutValid() {
   const sumTiles = sumOfSelectedTiles();
 
   if (sumDice !== sumTiles) {
-    const gameBoard = document.querySelector(".game-board");
-    const dialog = document.createElement("dialog");
-    const divOne = document.createElement("div");
-    const divTwo = document.createElement("div");
-    const closeButton = document.createElement("button");
-    const p = document.createElement("p");
-
-    dialog.classList.add("dialog");
-    closeButton.classList.add("close-button");
-    divOne.classList.add("dialog-container")
-    divTwo.classList.add("dialog-container")
-
-    p.innerText = "Du måste göra ett giltigt drag!";
-    closeButton.innerText = "x";
-
-    gameBoard.appendChild(dialog);
-    dialog.appendChild(divOne);
-    divOne.appendChild(p);
-    dialog.appendChild(divTwo);
-    divTwo.appendChild(closeButton);
-
-    dialog.open = true;
-    closeButton.addEventListener("click", () => {
-      dialog.close();
-    });
-
+    Modal("Du måste göra ett giltigt drag!");
     shutTiles = [];
     return;
-  }
-
-  function closeDialog(dialog) {
-    dialog.addEventListener("click", () => {
-      dialog.close = true;
-    });
   }
 
   // const move = gameService.submitMove(`${gameCode}`, {

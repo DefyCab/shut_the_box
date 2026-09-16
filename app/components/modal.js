@@ -1,4 +1,4 @@
-export function Modal(text) {
+export function modal(text) {
   const gameBoard = document.querySelector(".game-board");
   const dialog = document.createElement("dialog");
   const divOne = document.createElement("div");

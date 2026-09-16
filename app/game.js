@@ -1,6 +1,8 @@
 import move from "../mock/move.js";
 import state from "../mock/state.js";
-import { Modal } from "../app/components/modal.js";
+import { modal } from "../app/components/modal.js";
+import { renderTiles } from "./components/renderTiles.js";
+
 // import * as api from "../db/db.js";
 // import { createGameService } from "../db/service.js";
 
@@ -8,6 +10,10 @@ import { Modal } from "../app/components/modal.js";
 
 // const state = await gameService.getCurrentState("5BN8EB");
 
+// const gameCode =
+
+//Globala variablar
+const diceRolls = [];
 const dice = [
   ["center"],
   ["top-left", "bottom-right"],
@@ -23,24 +29,43 @@ const dice = [
     "bottom-right",
   ],
 ];
+let shutTiles = [];
 
-const numberBoard = document.querySelector(".number-board");
+// rendera brickor
+renderTiles();
 
-function renderTiles() {
-  for (let i = 1; i <= 9; i++) {
-    const numbers = document.createElement("button");
-    numbers.classList.add("number");
-    numbers.innerText = i;
-    numbers.id = `${i}`;
-    numberBoard.appendChild(numbers);
+const tiles = document.querySelectorAll(".number");
+
+tiles.forEach((tile) => {
+  tile.addEventListener("click", () => selectTile(tile));
+});
+
+const diceArea = document.querySelector(".dice-area");
+
+function showDice() {
+  for (let j = 0; j < diceRolls.length; j++) {
+    const dieBox = document.createElement("div");
+    const diceRollsCountDown = [diceRolls[0] - 1, diceRolls[1] - 1];
+    for (let i = 0; i < diceRolls[j]; i++) {
+      const cspan = document.createElement("span");
+      cspan.classList.add("pip", dice[diceRollsCountDown[j]][i]);
+      dieBox.appendChild(cspan);
+    }
+    dieBox.classList.add("die");
+    diceArea.appendChild(dieBox);
   }
 }
 
-renderTiles();
+function assingDiceRolls() {
+  const { currentDiceRoll } = state;
+  diceRolls[0] = currentDiceRoll.die1;
 
-const validMoves = state.validMoves;
-const validMovesCombined = validMoves.flat();
+  if (currentDiceRoll.diceCount > 1) {
+    diceRolls[1] = currentDiceRoll.die2;
+  }
+}
 
+// initiala state-värden
 const [{ currentScore }] = state.players;
 const currentScoreP = document.getElementById("current-score");
 
@@ -50,7 +75,7 @@ const activePlayerP = document.getElementById("active-player");
 currentScoreP.innerText = `${currentScore}`;
 activePlayerP.innerText = `${activePlayer}`;
 
-const tiles = document.querySelectorAll(".number");
+// Hantering av brickor
 let clickCounter = 0;
 
 function selectTile(tile) {
@@ -69,10 +94,11 @@ function selectTile(tile) {
   }
 }
 
+const validMoves = state.validMoves;
+const validMovesCombined = validMoves.flat();
 const allMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-function blockTilesNotValidMoves() {
-  // ta bort valid moves form allmoves array
+function blockUnvalidMoves() {
   let noneValidMoves = [];
 
   allMoves.map((number) => {
@@ -87,34 +113,6 @@ function blockTilesNotValidMoves() {
     }
   });
 }
-
-tiles.forEach((tile) => {
-  tile.addEventListener("click", () => selectTile(tile));
-});
-
-const diceArea = document.querySelector(".dice-area");
-
-const diceRolls = [];
-
-function assingDiceRolls() {
-  diceRolls[0] = state.currentDiceRoll.die1;
-  diceRolls[1] = state.currentDiceRoll.die2;
-}
-
-function showDice() {
-  for (let j = 0; j < diceRolls.length; j++) {
-    const dieBox = document.createElement("div");
-    const diceRollsCountDown = [diceRolls[0] - 1, diceRolls[1] - 1];
-    for (let i = 0; i < diceRolls[j]; i++) {
-      const cspan = document.createElement("span");
-      cspan.classList.add("pip", dice[diceRollsCountDown[j]][i]);
-      dieBox.appendChild(cspan);
-    }
-    dieBox.classList.add("die");
-    diceArea.appendChild(dieBox);
-  }
-}
-
 const rollOne = document.getElementById("roll-one");
 rollOne.addEventListener("click", rollOneDie);
 
@@ -137,22 +135,12 @@ function rollBothDice() {
   // gameService.rollDice("5BN8EB");
   assingDiceRolls();
   showDice();
-  blockTilesNotValidMoves();
+  blockUnvalidMoves();
   rollBoth.disabled = true;
   rollOne.disabled = true;
   rollBoth.classList.add("disabled");
   rollOne.classList.add("disabled");
   // }
-
-  // const gameBoard = document.querySelector(".game-board");
-  // const dialog = document.createElement("dialog");
-  // dialog.classList.add("dialog");
-  // gameBoard.appendChild(dialog);
-  // const p = document.createElement("p");
-  // p.innerText = "Tärningarna är redan slagna";
-  // dialog.appendChild(p);
-  // dialog.open = true;
-  // return;
 }
 
 function removeOldDice() {
@@ -165,8 +153,6 @@ function removeOldDice() {
   }
 }
 
-let shutTiles = [];
-
 function sumOfDiceRolls() {
   return diceRolls.reduce((accumulator, current) => accumulator + current, 0);
 }
@@ -176,7 +162,7 @@ function isShutValid() {
   const sumTiles = sumOfSelectedTiles();
 
   if (sumDice !== sumTiles) {
-    Modal("Du måste göra ett giltigt drag!");
+    modal("Du måste göra ett giltigt drag!");
     shutTiles = [];
     return;
   }

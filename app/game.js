@@ -6,7 +6,7 @@ import { renderTiles } from "./components/renderTiles.js";
 import * as api from "../db/db.js";
 import { createGameService } from "../app/services/gameService.js";
 
-const gameCode = "C5CPTX"
+const gameCode = "C5CPTX";
 
 const gameService = createGameService(api);
 
@@ -100,21 +100,26 @@ function selectTile(tile) {
   }
 }
 
-const validMoves = state.validMoves;
-const validMovesCombined = validMoves.flat();
-const allMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+async function blockUnvalidMoves() {
+  const state = await state.getCurrentState(`${gameCode}`);
 
-function blockUnvalidMoves() {
-  let noneValidMoves = [];
+  const { openNumbers } = state.players[0]
+  
+  debugger
 
-  allMoves.map((number) => {
-    if (!validMovesCombined.includes(number)) {
-      noneValidMoves = [...noneValidMoves, number];
-    }
-  });
+  // const validMoves = state.validMoves;
+  // const validMovesCombined = validMoves.flat();
+  // const allMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  // let noneValidMoves = [];
+
+  // allMoves.map((number) => {
+  //   if (!validMovesCombined.includes(number)) {
+  //     noneValidMoves = [...noneValidMoves, number];
+  //   }
+  // });
 
   tiles.forEach((tile) => {
-    if (noneValidMoves.includes(Number(tile.id))) {
+    if (!openNumbers.includes(Number(tile.id))) {
       tile.classList.add("number-not-selectable");
     }
   });
@@ -139,10 +144,10 @@ function rollOneDie() {
 
 async function rollBothDice() {
   const state = await gameService.getCurrentState(`${gameCode}`);
-debugger
+  debugger;
   if (state.currentDiceRoll === null) {
-    const roll = gameService.rollDice("C5CPTX");
-debugger
+    const roll = await gameService.rollDice("C5CPTX");
+    debugger;
     diceRolls[0] = state.currentDiceRoll.die1;
 
     if (state.currentDiceRoll.diceCount > 1) {
@@ -161,7 +166,7 @@ debugger
     if (state.currentDiceRoll.diceCount > 1) {
       diceRolls[1] = state.currentDiceRoll.die2;
     }
-        showDice();
+    showDice();
     blockUnvalidMoves();
     rollBoth.disabled = true;
     rollOne.disabled = true;
@@ -197,14 +202,14 @@ async function isShutValid() {
   const move = await gameService.submitMove(`${gameCode}`, {
     selectedNumbers: shutTiles,
   });
-  debugger
+  debugger;
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
   rollBoth.classList.remove("disabled");
   setTimeout(() => {
     removeOldDice();
   }, 1500);
-  updateState()
+  updateState();
   rollBoth.disabled = false;
 }
 

@@ -1,16 +1,20 @@
-import move from "../mock/move.js";
-import state from "../mock/state.js";
+// import move from "../mock/move.js";
+// import state from "../mock/state.js";
 import { modal } from "../app/components/modal.js";
 import { renderTiles } from "./components/renderTiles.js";
 
-// import * as api from "../db/db.js";
-// import { createGameService } from "../db/service.js";
+import * as api from "../db/db.js";
+import { createGameService } from "../app/services/gameService.js";
 
-// const gameService = createGameService(api);
+const gameService = createGameService(api);
 
-// const state = await gameService.getCurrentState("5BN8EB");
+async function updateState() {
+  const state = await gameService.getCurrentState("C5CPTX");
+  return state
+}
 
-// const gameCode =
+const state = await updateState()
+console.log(state)
 
 //Globala variablar
 const diceRolls = [];
@@ -64,16 +68,6 @@ function assingDiceRolls() {
     diceRolls[1] = currentDiceRoll.die2;
   }
 }
-
-// initiala state-värden
-const [{ currentScore }] = state.players;
-const currentScoreP = document.getElementById("current-score");
-
-const activePlayer = state.currentPlayerName;
-const activePlayerP = document.getElementById("active-player");
-
-currentScoreP.innerText = `${currentScore}`;
-activePlayerP.innerText = `${activePlayer}`;
 
 // Hantering av brickor
 let clickCounter = 0;

@@ -6,10 +6,12 @@ import { renderTiles } from "./components/renderTiles.js";
 import * as api from "../db/db.js";
 import { createGameService } from "../app/services/gameService.js";
 
+const gameCode = "C5CPTX"
+
 const gameService = createGameService(api);
 
 async function updateState() {
-  const state = await gameService.getCurrentState("C5CPTX");
+  const state = await gameService.getCurrentState(`${gameCode}`);
   // initiala state-värden
   const [{ currentScore }] = state.players;
   const currentScoreP = document.getElementById("current-score");
@@ -117,6 +119,7 @@ function blockUnvalidMoves() {
     }
   });
 }
+
 const rollOne = document.getElementById("roll-one");
 rollOne.addEventListener("click", rollOneDie);
 
@@ -135,7 +138,7 @@ function rollOneDie() {
 }
 
 async function rollBothDice() {
-  const state = await gameService.getCurrentState("C5CPTX");
+  const state = await gameService.getCurrentState(`${gameCode}`);
 debugger
   if (state.currentDiceRoll === null) {
     const roll = gameService.rollDice("C5CPTX");
@@ -181,7 +184,7 @@ function sumOfDiceRolls() {
   return diceRolls.reduce((accumulator, current) => accumulator + current, 0);
 }
 
-function isShutValid() {
+async function isShutValid() {
   const sumDice = sumOfDiceRolls();
   const sumTiles = sumOfSelectedTiles();
 
@@ -191,17 +194,17 @@ function isShutValid() {
     return;
   }
 
-  // const move = gameService.submitMove(`${gameCode}`, {
-  //   selectedNumbers: [`${shutTiles}`],
-  // });
-  const [{ currentScore }] = move.players;
-  currentScoreP.innerText = `${currentScore}`;
+  const move = await gameService.submitMove(`${gameCode}`, {
+    selectedNumbers: shutTiles,
+  });
+  debugger
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
   rollBoth.classList.remove("disabled");
   setTimeout(() => {
     removeOldDice();
   }, 1500);
+  updateState()
   rollBoth.disabled = false;
 }
 

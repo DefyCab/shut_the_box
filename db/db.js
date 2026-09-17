@@ -67,10 +67,9 @@ export async function submitMove(gameId, move) {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-type":"application/json"
       },
-      body: {
-        selectedNumbers: [`${move}`],
-      },
+      body: JSON.stringify(move)
     });
 
     if (!response.ok) {

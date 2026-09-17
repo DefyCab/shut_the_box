@@ -10,11 +10,20 @@ const gameService = createGameService(api);
 
 async function updateState() {
   const state = await gameService.getCurrentState("C5CPTX");
-  return state
+  // initiala state-värden
+  const [{ currentScore }] = state.players;
+  const currentScoreP = document.getElementById("current-score");
+
+  const activePlayer = state.currentPlayerName;
+  const activePlayerP = document.getElementById("active-player");
+
+  currentScoreP.innerText = `${currentScore}`;
+  activePlayerP.innerText = `${activePlayer}`;
+  return state;
 }
 
-const state = await updateState()
-console.log(state)
+const state = await updateState();
+console.log(state);
 
 //Globala variablar
 const diceRolls = [];
@@ -62,6 +71,7 @@ function showDice() {
 
 function assingDiceRolls() {
   const { currentDiceRoll } = state;
+  debugger;
   diceRolls[0] = currentDiceRoll.die1;
 
   if (currentDiceRoll.diceCount > 1) {
@@ -124,17 +134,37 @@ function rollOneDie() {
   rollOne.classList.add("disabled");
 }
 
-function rollBothDice() {
-  // if (state.currentDiceRoll === null) {
-  // gameService.rollDice("5BN8EB");
-  assingDiceRolls();
-  showDice();
-  blockUnvalidMoves();
-  rollBoth.disabled = true;
-  rollOne.disabled = true;
-  rollBoth.classList.add("disabled");
-  rollOne.classList.add("disabled");
-  // }
+async function rollBothDice() {
+  const state = await gameService.getCurrentState("C5CPTX");
+debugger
+  if (state.currentDiceRoll === null) {
+    const roll = gameService.rollDice("C5CPTX");
+debugger
+    diceRolls[0] = state.currentDiceRoll.die1;
+
+    if (state.currentDiceRoll.diceCount > 1) {
+      diceRolls[1] = state.currentDiceRoll.die2;
+    }
+
+    showDice();
+    blockUnvalidMoves();
+    rollBoth.disabled = true;
+    rollOne.disabled = true;
+    rollBoth.classList.add("disabled");
+    rollOne.classList.add("disabled");
+  } else {
+    diceRolls[0] = state.currentDiceRoll.die1;
+
+    if (state.currentDiceRoll.diceCount > 1) {
+      diceRolls[1] = state.currentDiceRoll.die2;
+    }
+        showDice();
+    blockUnvalidMoves();
+    rollBoth.disabled = true;
+    rollOne.disabled = true;
+    rollBoth.classList.add("disabled");
+    rollOne.classList.add("disabled");
+  }
 }
 
 function removeOldDice() {

@@ -3,11 +3,15 @@ import { createRoomService } from "../app/services/roomService.js";
 
 const roomService = createRoomService(api);
 
-// const gameCode = "";
+const gameCode = "P36YDK";
+const roomCode = "Z666G3";
 
-// const room = await roomService.getRoom(`${gameCode}`);
+async function updateRoom() {
+  const room = await roomService.getRoom(`${roomCode}`);
+  return room;
+}
 
-// console.log(room);
+// const room = await roomService.getRoom(`${roomCode}`);
 
 const createRoomBtn = document.querySelector("#create-room-btn");
 console.log(createRoomBtn);
@@ -15,34 +19,34 @@ createRoomBtn.addEventListener("click", createRoom);
 
 async function createRoom() {
   const create = await roomService.creteRoom("defys nya nya singelrum", 1);
-  console.log(create);
-  debugger;
+  return create;
 }
 
-function createGameLobby() {
+async function createGameLobby() {
+  const room = await updateRoom();
+
   const gameRoomNameSpan = document.querySelector("#game-room-name");
   const playerOneSpan = document.querySelector("#player-one");
   const nextPlayerSpan = document.querySelector("#next-player-to-move");
 
-  // const [{ name }] = room.members;
+  console.log(room);
+  const [{ name }] = room.players;
 
-  // const gameRoom = {
-  //   room: room.name,
-  //   playerOne: name,
-  //   nextPlayer: "none",
-  // };
+  const singleGameRoom = {
+    room: room.name,
+    playerOne: name,
+  };
 
-  const gameRoomName = document.createElement("p");
-  const playerOne = document.createElement("p");
-  const nextPlayer = document.createElement("p");
+  if (room.players.length < 2) {
+    const gameRoomName = document.createElement("p");
+    const playerOne = document.createElement("p");
 
-  // gameRoomName.innerText = gameRoom.room;
-  // playerOne.innerText = gameRoom.playerOne;
-  // nextPlayer.innerText = gameRoom.nextPlayer;
+    gameRoomName.innerText = singleGameRoom.room;
+    playerOne.innerText = singleGameRoom.playerOne;
 
-  gameRoomNameSpan.appendChild(gameRoomName);
-  playerOneSpan.appendChild(playerOne);
-  nextPlayerSpan.appendChild(nextPlayer);
+    gameRoomNameSpan.appendChild(gameRoomName);
+    playerOneSpan.appendChild(playerOne);
+  }
 }
 
 createGameLobby();

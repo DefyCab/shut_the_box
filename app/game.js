@@ -12,7 +12,7 @@ const gameService = createGameService(api);
 
 async function updateState() {
   const state = await gameService.getCurrentState(`${gameCode}`);
-  // initiala state-värden
+
   const [{ currentScore }] = state.players;
   const currentScoreP = document.getElementById("current-score");
 
@@ -21,6 +21,16 @@ async function updateState() {
 
   currentScoreP.innerText = `${currentScore}`;
   activePlayerP.innerText = `${activePlayer}`;
+
+  // Only show open numbers
+  const { openNumbers } = state.players[0];
+
+  tiles.forEach((tile) => {
+    if (!openNumbers.includes(Number(tile.id))) {
+      tile.classList.add("number-not-selectable");
+    }
+  });
+
   return state;
 }
 
@@ -103,9 +113,7 @@ function selectTile(tile) {
 async function blockUnvalidMoves() {
   const state = await state.getCurrentState(`${gameCode}`);
 
-  const { openNumbers } = state.players[0]
-  
-  debugger
+  const { openNumbers } = state.players[0];
 
   // const validMoves = state.validMoves;
   // const validMovesCombined = validMoves.flat();

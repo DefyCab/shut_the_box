@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+.create-room-button {
+  background-color: slateblue;
+  border-radius: 4px;
+  margin-right: 5px;
+  cursor: pointer;
+}
 .game-room {
   display: flex;
   flex-direction: column;

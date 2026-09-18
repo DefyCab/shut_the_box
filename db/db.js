@@ -23,6 +23,30 @@ export async function getRoom(id) {
   }
 }
 
+export async function createRoom(name, maxPlayers) {
+  try {
+    const response = await fetch(`${apiEndpointBase}/rooms`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name: `${name}`,
+        maxPlayers: maxPlayers,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(`Status: ${error.status}`);
+  }
+}
+
 export async function getCurrentState(gameId) {
   try {
     const response = await fetch(`${apiEndpointBase}/games/${gameId}/state`, {
@@ -67,9 +91,9 @@ export async function submitMove(gameId, move) {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-type":"application/json"
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(move)
+      body: JSON.stringify(move),
     });
 
     if (!response.ok) {

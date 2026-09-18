@@ -23,6 +23,25 @@ export async function getRoom(id) {
   }
 }
 
+export async function getRooms() {
+  try {
+    const response = await fetch(`${apiEndpointBase}/games/active`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(`Status: ${error.status}`);
+  }
+}
+
 export async function createRoom(name, maxPlayers) {
   try {
     const response = await fetch(`${apiEndpointBase}/rooms`, {

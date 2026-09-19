@@ -13,10 +13,10 @@ async function updateRoom() {
 
 async function getallRooms() {
   const rooms = await roomService.getRooms();
-  return rooms
+  return rooms;
 }
 
-console.log(await getallRooms())
+console.log(await getallRooms());
 // const room = await roomService.getRoom(`${roomCode}`);
 
 const createRoomBtn = document.querySelector("#create-room-btn");
@@ -29,42 +29,58 @@ async function createRoom() {
 }
 
 async function createGameLobby() {
-  const room = await updateRoom();
+  const rooms = await getallRooms();
+
+  const main = document.querySelector(".main-container");
 
   // const gameRoomNameSpan = document.querySelector("#game-room-name");
   // const playerOneSpan = document.querySelector("#player-one");
   // const nextPlayerSpan = document.querySelector("#next-player-to-move");
 
-  console.log(room);
-  const [{ name }] = room.players;
+  let id = 1;
 
-  const singleGameRoom = {
-    room: room.name,
-    playerOne: name,
-  };
+  rooms.map((room) => {
+    const [{ name }] = room.players;
 
-  if (room.players.length < 2) {
-    const gameRoomNameSpan = document.createElement("span");
-    const gameRoomNamePrefix = document.createElement("p");
-    gameRoomNamePrefix.classList.add("category");
-    gameRoomNameSpan.classList.add("game-room-span");
-    gameRoomNameSpan.setAttribute("id", "game-room-name");
+    const singleGameRoom = {
+      room: room.roomName,
+      playerOne: name,
+    };
 
-    const gameRoomPlayerSpan = document.createElement("span");
-    const gameRoomPlayerPrefix = document.createElement("p");
-    gameRoomPlayerPrefix.classList.add("category");
-    gameRoomPlayerSpan.classList.add("game-room-name");
-    gameRoomPlayerSpan.setAttribute("id", "player-one");
+    console.log(singleGameRoom);
+    debugger;
+    if (room.players.length < 2) {
+      const gameRoom = document.createElement("article");
+      gameRoom.classList.add("game-room");
+      gameRoom.setAttribute("id", `${id}`);
 
-    const gameRoomName = document.createElement("p");
-    const playerOne = document.createElement("p");
+      const gameRoomNameSpan = document.createElement("span");
+      const gameRoomNamePrefix = document.createElement("p");
+      gameRoomNamePrefix.classList.add("category");
+      gameRoomNameSpan.classList.add("game-room-span");
+      gameRoomNameSpan.setAttribute("id", "game-room-name");
 
-    gameRoomName.innerText = singleGameRoom.room;
-    playerOne.innerText = singleGameRoom.playerOne;
+      const gameRoomPlayerSpan = document.createElement("span");
+      const gameRoomPlayerPrefix = document.createElement("p");
+      gameRoomPlayerPrefix.classList.add("category");
+      gameRoomPlayerSpan.classList.add("game-room-name");
+      gameRoomPlayerSpan.setAttribute("id", "player-one");
 
-    gameRoomNameSpan.appendChild(gameRoomName);
-    gameRoomPlayerPrefix.appendChild(playerOne);
-  }
+      const gameRoomName = document.createElement("p");
+      const playerOne = document.createElement("p");
+
+      gameRoomName.innerText = singleGameRoom.room;
+      playerOne.innerText = singleGameRoom.playerOne;
+
+      main.appendChild(gameRoom);
+      gameRoom.append(gameRoomNameSpan);
+      gameRoomNameSpan.appendChild(gameRoomName);
+
+      // gameRoomPlayerPrefix.appendChild(playerOne);
+
+      id = id + 1;
+    }
+  });
 }
 
 createGameLobby();

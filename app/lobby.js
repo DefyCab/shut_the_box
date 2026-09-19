@@ -53,14 +53,14 @@ async function createGameLobby() {
       gameRoom.setAttribute("id", `${id}`);
 
       const gameRoomNameSpan = document.createElement("span");
-      const gameRoomNamePrefix = document.createElement("p");
-      gameRoomNamePrefix.classList.add("category");
+      // const gameRoomNamePrefix = document.createElement("p");
+      // gameRoomNamePrefix.classList.add("category");
       gameRoomNameSpan.classList.add("game-room-span");
       gameRoomNameSpan.setAttribute("id", "game-room-name");
 
       const gameRoomPlayerSpan = document.createElement("span");
-      const gameRoomPlayerPrefix = document.createElement("p");
-      gameRoomPlayerPrefix.classList.add("category");
+      // const gameRoomPlayerPrefix = document.createElement("p");
+      // gameRoomPlayerPrefix.classList.add("category");
       gameRoomPlayerSpan.classList.add("game-room-name");
       gameRoomPlayerSpan.setAttribute("id", "player-one");
 
@@ -75,8 +75,6 @@ async function createGameLobby() {
       gameRoomNameSpan.appendChild(gameRoomName);
       gameRoom.appendChild(gameRoomPlayerSpan);
       gameRoomPlayerSpan.appendChild(playerOne);
-
-      // gameRoomPlayerPrefix.appendChild(playerOne);
 
       id = id + 1;
     }

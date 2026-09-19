@@ -47,8 +47,6 @@ async function createGameLobby() {
       playerOne: name,
     };
 
-    console.log(singleGameRoom);
-    debugger;
     if (room.players.length < 2) {
       const gameRoom = document.createElement("article");
       gameRoom.classList.add("game-room");
@@ -69,12 +67,14 @@ async function createGameLobby() {
       const gameRoomName = document.createElement("p");
       const playerOne = document.createElement("p");
 
-      gameRoomName.innerText = singleGameRoom.room;
-      playerOne.innerText = singleGameRoom.playerOne;
+      gameRoomName.innerHTML = `<strong>Rum: </strong> ${singleGameRoom.room}`;
+      playerOne.innerHTML = `<strong>Spelare: </strong> ${singleGameRoom.playerOne}`;
 
       main.appendChild(gameRoom);
       gameRoom.append(gameRoomNameSpan);
       gameRoomNameSpan.appendChild(gameRoomName);
+      gameRoom.appendChild(gameRoomPlayerSpan);
+      gameRoomPlayerSpan.appendChild(playerOne);
 
       // gameRoomPlayerPrefix.appendChild(playerOne);
 

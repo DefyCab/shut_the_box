@@ -6,9 +6,20 @@ import { renderTiles } from "./components/renderTiles.js";
 import * as api from "../db/db.js";
 import { createGameService } from "../app/services/gameService.js";
 
-const gameCode = "C5CPTX";
+const url = window.location.href;
+const urlSplit = url.split("=");
+const gameCode = urlSplit[1];
 
 const gameService = createGameService(api);
+
+// rendera brickor
+renderTiles();
+
+const tiles = document.querySelectorAll(".number");
+
+tiles.forEach((tile) => {
+  tile.addEventListener("click", () => selectTile(tile));
+});
 
 async function updateState() {
   const state = await gameService.getCurrentState(`${gameCode}`);
@@ -56,15 +67,6 @@ const dice = [
 ];
 let shutTiles = [];
 
-// rendera brickor
-renderTiles();
-
-const tiles = document.querySelectorAll(".number");
-
-tiles.forEach((tile) => {
-  tile.addEventListener("click", () => selectTile(tile));
-});
-
 const diceArea = document.querySelector(".dice-area");
 
 function showDice() {
@@ -83,7 +85,6 @@ function showDice() {
 
 function assingDiceRolls() {
   const { currentDiceRoll } = state;
-  debugger;
   diceRolls[0] = currentDiceRoll.die1;
 
   if (currentDiceRoll.diceCount > 1) {
@@ -152,10 +153,9 @@ function rollOneDie() {
 
 async function rollBothDice() {
   const state = await gameService.getCurrentState(`${gameCode}`);
-  debugger;
+
   if (state.currentDiceRoll === null) {
-    const roll = await gameService.rollDice("C5CPTX");
-    debugger;
+    const roll = await gameService.rollDice(`${gameCode}`);
     diceRolls[0] = state.currentDiceRoll.die1;
 
     if (state.currentDiceRoll.diceCount > 1) {
@@ -210,7 +210,7 @@ async function isShutValid() {
   const move = await gameService.submitMove(`${gameCode}`, {
     selectedNumbers: shutTiles,
   });
-  debugger;
+
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
   rollBoth.classList.remove("disabled");

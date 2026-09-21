@@ -102,17 +102,6 @@ async function blockUnvalidMoves() {
 
   const { openNumbers } = state.players[0];
 
-  // const validMoves = state.validMoves;
-  // const validMovesCombined = validMoves.flat();
-  // const allMoves = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  // let noneValidMoves = [];
-
-  // allMoves.map((number) => {
-  //   if (!validMovesCombined.includes(number)) {
-  //     noneValidMoves = [...noneValidMoves, number];
-  //   }
-  // });
-
   tiles.forEach((tile) => {
     if (!openNumbers.includes(Number(tile.id))) {
       tile.classList.add("shut-tile");

@@ -1,5 +1,6 @@
 import * as api from "../db/db.js";
 import { createRoomService } from "../app/services/roomService.js";
+import { modal } from "./components/modal.js";
 
 const roomService = createRoomService(api);
 
@@ -19,11 +20,13 @@ console.log(await getallRooms());
 // const room = await roomService.getRoom(`${roomCode}`);
 
 const createRoomBtn = document.querySelector("#create-room-btn");
-console.log(createRoomBtn);
 createRoomBtn.addEventListener("click", createRoom);
 
 async function createRoom() {
   const create = await roomService.creteRoom("defys nya nya singelrum", 1);
+
+  const roomCode = state.roomCode;
+  modal(`Ett rum med koden ${roomCode} har skapats`);
   return create;
 }
 

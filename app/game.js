@@ -45,8 +45,8 @@ async function updateState() {
   return state;
 }
 
-const state = await updateState();
-console.log(state);
+// const state = await updateState();
+// console.log(state);
 
 //Globala variablar
 const diceRolls = [];
@@ -83,14 +83,14 @@ function showDice() {
   }
 }
 
-function assingDiceRolls() {
-  const { currentDiceRoll } = state;
-  diceRolls[0] = currentDiceRoll.die1;
+// function assingDiceRolls() {
+//   const { currentDiceRoll } = state;
+//   diceRolls[0] = currentDiceRoll.die1;
 
-  if (currentDiceRoll.diceCount > 1) {
-    diceRolls[1] = currentDiceRoll.die2;
-  }
-}
+//   if (currentDiceRoll.diceCount > 1) {
+//     diceRolls[1] = currentDiceRoll.die2;
+//   }
+// }
 
 // Hantering av brickor
 let clickCounter = 0;
@@ -112,7 +112,7 @@ function selectTile(tile) {
 }
 
 async function blockUnvalidMoves() {
-  const state = await state.getCurrentState(`${gameCode}`);
+  const state = await gameService.getCurrentState(`${gameCode}`);
 
   const { openNumbers } = state.players[0];
 
@@ -134,40 +134,41 @@ async function blockUnvalidMoves() {
   });
 }
 
-const rollOne = document.getElementById("roll-one");
-rollOne.addEventListener("click", rollOneDie);
+// const rollOne = document.getElementById("roll-one");
+// rollOne.addEventListener("click", rollOneDie);
 
 const rollBoth = document.getElementById("roll-both");
 rollBoth.addEventListener("click", rollBothDice);
 
-function rollOneDie() {
-  removeOldDice();
-  randomizeDice();
-  diceRolls.pop();
-  showDice();
-  rollBoth.disabled = true;
-  rollOne.disabled = true;
-  rollBoth.classList.add("disabled");
-  rollOne.classList.add("disabled");
-}
+// function rollOneDie() {
+//   removeOldDice();
+//   randomizeDice();
+//   diceRolls.pop();
+//   showDice();
+//   rollBoth.disabled = true;
+//   rollOne.disabled = true;
+//   rollBoth.classList.add("disabled");
+//   rollOne.classList.add("disabled");
+// }
 
 async function rollBothDice() {
   const state = await gameService.getCurrentState(`${gameCode}`);
 
   if (state.currentDiceRoll === null) {
     const roll = await gameService.rollDice(`${gameCode}`);
-    diceRolls[0] = state.currentDiceRoll.die1;
+    debugger;
+    diceRolls[0] = roll.currentDiceRoll.die1;
 
-    if (state.currentDiceRoll.diceCount > 1) {
-      diceRolls[1] = state.currentDiceRoll.die2;
+    if (roll.currentDiceRoll.diceCount > 1) {
+      diceRolls[1] = roll.currentDiceRoll.die2;
     }
 
     showDice();
     blockUnvalidMoves();
     rollBoth.disabled = true;
-    rollOne.disabled = true;
+    // rollOne.disabled = true;
     rollBoth.classList.add("disabled");
-    rollOne.classList.add("disabled");
+    // rollOne.classList.add("disabled");
   } else {
     diceRolls[0] = state.currentDiceRoll.die1;
 
@@ -177,9 +178,9 @@ async function rollBothDice() {
     showDice();
     blockUnvalidMoves();
     rollBoth.disabled = true;
-    rollOne.disabled = true;
+    // rollOne.disabled = true;
     rollBoth.classList.add("disabled");
-    rollOne.classList.add("disabled");
+    // rollOne.classList.add("disabled");
   }
 }
 
@@ -211,6 +212,7 @@ async function isShutValid() {
     selectedNumbers: shutTiles,
   });
 
+  debugger;
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
   rollBoth.classList.remove("disabled");
@@ -234,6 +236,7 @@ function sumOfSelectedTiles() {
     if (tile.classList.contains("number-selected")) {
       shutTiles.push(Number(tile.innerText));
     }
+    debugger;
   });
 
   const sumOfSelectedTiles = shutTiles.reduce(

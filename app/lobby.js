@@ -68,6 +68,7 @@ async function createGameLobby() {
 
       const buttonDiv = document.createElement("div");
       const openGameBtn = document.createElement("button");
+      openGameBtn.setAttribute("id", `${id}`);
       openGameBtn.classList.add("open-game");
       openGameBtn.innerText = "Öppna rum";
 
@@ -81,18 +82,21 @@ async function createGameLobby() {
 
       id = id + 1;
     }
-
-    //TODO: Loop over gameRooms and take id to get gameCode.
-    // create button on each article
   });
+  const openGamebtns = document.querySelectorAll(".open-game");
+  console.log(openGamebtns);
+  openGamebtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      console.log(btn);
+      const id = Number(btn.id);
+      const gameCode = rooms[id - 1].gameCode;
+
+      window.location.href = `game.html?gameCode=${gameCode}`;
+    });
+  });
+
+  //TODO: Loop over gameRooms and take id to get gameCode.
+  // create button on each article
 }
 
 createGameLobby();
-
-// const goToGameButton = document.querySelector("#open-game-btn");
-// goToGameButton.addEventListener("click", goToGame);
-
-function goToGame() {
-  gameCode = rooms[`${id - 1}`].gameCode;
-  window.location.href = "game.html?gameCode=${}";
-}

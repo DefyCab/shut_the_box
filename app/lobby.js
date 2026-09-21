@@ -33,10 +33,6 @@ async function createGameLobby() {
 
   const main = document.querySelector(".main-container");
 
-  // const gameRoomNameSpan = document.querySelector("#game-room-name");
-  // const playerOneSpan = document.querySelector("#player-one");
-  // const nextPlayerSpan = document.querySelector("#next-player-to-move");
-
   let id = 1;
 
   rooms.map((room) => {
@@ -70,22 +66,33 @@ async function createGameLobby() {
       gameRoomName.innerHTML = `<strong>Rum: </strong> ${singleGameRoom.room}`;
       playerOne.innerHTML = `<strong>Spelare: </strong> ${singleGameRoom.playerOne}`;
 
+      const buttonDiv = document.createElement("div");
+      const openGameBtn = document.createElement("button");
+      openGameBtn.classList.add("open-game");
+      openGameBtn.innerText = "Öppna rum";
+
       main.appendChild(gameRoom);
       gameRoom.append(gameRoomNameSpan);
       gameRoomNameSpan.appendChild(gameRoomName);
       gameRoom.appendChild(gameRoomPlayerSpan);
       gameRoomPlayerSpan.appendChild(playerOne);
+      gameRoom.appendChild(buttonDiv);
+      buttonDiv.appendChild(openGameBtn);
 
       id = id + 1;
     }
+
+    //TODO: Loop over gameRooms and take id to get gameCode.
+    // create button on each article
   });
 }
 
 createGameLobby();
 
-const goToGameButton = document.querySelector("#open-game-btn");
-goToGameButton.addEventListener("click", goToGame);
+// const goToGameButton = document.querySelector("#open-game-btn");
+// goToGameButton.addEventListener("click", goToGame);
 
 function goToGame() {
-  window.location.href = "game.html";
+  gameCode = rooms[`${id - 1}`].gameCode;
+  window.location.href = "game.html?gameCode=${}";
 }

@@ -3,13 +3,12 @@ import { createRoomService } from "../app/services/roomService.js";
 
 const roomService = createRoomService(api);
 
-const gameCode = "P36YDK";
-const roomCode = "Z666G3";
+// const roomCode = "Z666G3";
 
-async function updateRoom() {
-  const room = await roomService.getRoom(`${roomCode}`);
-  return room;
-}
+// async function updateRoom() {
+//   const room = await roomService.getRoom(`${roomCode}`);
+//   return room;
+// }
 
 async function getallRooms() {
   const rooms = await roomService.getRooms();

@@ -1,5 +1,3 @@
-// import move from "../mock/move.js";
-// import state from "../mock/state.js";
 import { modal } from "../app/components/modal.js";
 import { renderTiles } from "./components/renderTiles.js";
 
@@ -45,9 +43,6 @@ async function updateState() {
   return state;
 }
 
-// const state = await updateState();
-// console.log(state);
-
 //Globala variablar
 const diceRolls = [];
 const dice = [
@@ -82,15 +77,6 @@ function showDice() {
     diceArea.appendChild(dieBox);
   }
 }
-
-// function assingDiceRolls() {
-//   const { currentDiceRoll } = state;
-//   diceRolls[0] = currentDiceRoll.die1;
-
-//   if (currentDiceRoll.diceCount > 1) {
-//     diceRolls[1] = currentDiceRoll.die2;
-//   }
-// }
 
 // Hantering av brickor
 let clickCounter = 0;
@@ -129,59 +115,27 @@ async function blockUnvalidMoves() {
 
   tiles.forEach((tile) => {
     if (!openNumbers.includes(Number(tile.id))) {
-      tile.classList.add("number-not-selectable");
+      tile.classList.add("shut-tile");
     }
   });
 }
 
-// const rollOne = document.getElementById("roll-one");
-// rollOne.addEventListener("click", rollOneDie);
+const roll = document.getElementById("roll-both");
+roll.addEventListener("click", rollDice);
 
-const rollBoth = document.getElementById("roll-both");
-rollBoth.addEventListener("click", rollBothDice);
+async function rollDice() {
+  
+  const roll = await gameService.rollDice(`${gameCode}`);
+  diceRolls[0] = roll.currentDiceRoll.die1;
 
-// function rollOneDie() {
-//   removeOldDice();
-//   randomizeDice();
-//   diceRolls.pop();
-//   showDice();
-//   rollBoth.disabled = true;
-//   rollOne.disabled = true;
-//   rollBoth.classList.add("disabled");
-//   rollOne.classList.add("disabled");
-// }
-
-async function rollBothDice() {
-  const state = await gameService.getCurrentState(`${gameCode}`);
-
-  if (state.currentDiceRoll === null) {
-    const roll = await gameService.rollDice(`${gameCode}`);
-    debugger;
-    diceRolls[0] = roll.currentDiceRoll.die1;
-
-    if (roll.currentDiceRoll.diceCount > 1) {
-      diceRolls[1] = roll.currentDiceRoll.die2;
-    }
-
-    showDice();
-    blockUnvalidMoves();
-    rollBoth.disabled = true;
-    // rollOne.disabled = true;
-    rollBoth.classList.add("disabled");
-    // rollOne.classList.add("disabled");
-  } else {
-    diceRolls[0] = state.currentDiceRoll.die1;
-
-    if (state.currentDiceRoll.diceCount > 1) {
-      diceRolls[1] = state.currentDiceRoll.die2;
-    }
-    showDice();
-    blockUnvalidMoves();
-    rollBoth.disabled = true;
-    // rollOne.disabled = true;
-    rollBoth.classList.add("disabled");
-    // rollOne.classList.add("disabled");
+  if (roll.currentDiceRoll.diceCount > 1) {
+    diceRolls[1] = roll.currentDiceRoll.die2;
   }
+
+  showDice();
+  blockUnvalidMoves();
+  roll.disabled = true;
+  roll.classList.add("disabled");
 }
 
 function removeOldDice() {
@@ -215,12 +169,12 @@ async function isShutValid() {
   debugger;
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
-  rollBoth.classList.remove("disabled");
+  roll.classList.remove("disabled");
   setTimeout(() => {
     removeOldDice();
   }, 1500);
   updateState();
-  rollBoth.disabled = false;
+  roll.disabled = false;
 }
 
 function openAllRemainingTilesForSelection() {
@@ -246,16 +200,6 @@ function sumOfSelectedTiles() {
 
   return sumOfSelectedTiles;
 }
-
-// function toggleShutSelectedTilesButton() {
-//   if (!state.updateReason === "DiceRolled") {
-//     shutTilesButton.disabled;
-//   }
-// }
-
-// function submitMove() {
-//   gameService.submitMoves(validatedTile[0], validatedTile[1]);
-// }
 
 function shutSelectedTiles() {
   tiles.forEach((tile) => {

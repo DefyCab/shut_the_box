@@ -24,6 +24,7 @@ tiles.forEach((tile) => {
 
 async function updateState() {
   const state = await gameService.getCurrentState(`${gameCode}`);
+  console.log(state);
   const [{ currentScore }] = state.players;
   const currentScoreP = document.getElementById("current-score");
 
@@ -42,11 +43,17 @@ async function updateState() {
     }
   });
 
+  tiles.forEach((tile) => {
+    if (!tile.classList.contains("shut-tile")) {
+      tile.disabled = false;
+    }
+  });
+
   return state;
 }
 
 //Globala variablar
-const diceRolls = [];
+// const diceRolls = [];
 const dice = [
   ["center"],
   ["top-left", "bottom-right"],
@@ -66,7 +73,7 @@ let shutTiles = [];
 
 const diceArea = document.querySelector(".dice-area");
 
-function showDice() {
+function showDice(diceRolls) {
   for (let j = 0; j < diceRolls.length; j++) {
     const dieBox = document.createElement("div");
     const diceRollsCountDown = [diceRolls[0] - 1, diceRolls[1] - 1];
@@ -84,9 +91,9 @@ function showDice() {
 let clickCounter = 0;
 
 function selectTile(tile) {
-  if (diceRolls.length < 1) {
-    return;
-  }
+  // if (diceRolls.length < 1) {
+  //   return;
+  // }
   if (clickCounter === 4 && !tile.classList.contains("number-selected")) {
     return;
   }
@@ -115,6 +122,7 @@ const rollbtn = document.getElementById("roll-both");
 rollbtn.addEventListener("click", rollDice);
 
 async function rollDice() {
+  const diceRolls = [];
   const state = await gameService.getCurrentState(`${gameCode}`);
 
   if (state.currentDiceRoll !== null) {
@@ -124,8 +132,9 @@ async function rollDice() {
       diceRolls[1] = state.currentDiceRoll.die2;
     }
 
-    showDice();
+    showDice(diceRolls);
   } else {
+    const diceRolls = [];
     const roll = await gameService.rollDice(`${gameCode}`);
     diceRolls[0] = roll.currentDiceRoll.die1;
 
@@ -133,7 +142,7 @@ async function rollDice() {
       diceRolls[1] = roll.currentDiceRoll.die2;
     }
 
-    showDice();
+    showDice(diceRolls);
 
     const validMoves = roll.validMoves.flat();
 
@@ -142,10 +151,12 @@ async function rollDice() {
     tiles.forEach((tile) => {
       if (!validMoves.includes(Number(tile.id))) {
         tile.classList.add("number-not-selectable");
+        tile.disabled = true;
       }
 
       if (!openNumbers.includes(Number(tile.id))) {
         tile.classList.remove("number-not-selectable");
+        tile.disabled = true;
       }
     });
 
@@ -165,15 +176,25 @@ function removeOldDice() {
   }
 }
 
-function sumOfDiceRolls() {
+function sumOfDiceRolls(diceRolls) {
   return diceRolls.reduce((accumulator, current) => accumulator + current, 0);
 }
 
 async function isShutValid() {
-  const sumDice = sumOfDiceRolls();
+  const state = await gameService.getCurrentState(`${gameCode}`);
+  const diceRolls = [];
+
+  if (state.currentDiceRoll !== null) {
+    diceRolls[0] = state.currentDiceRoll.die1;
+
+    if (state.currentDiceRoll.diceCount > 1) {
+      diceRolls[1] = state.currentDiceRoll.die2;
+    }
+  }
+
+  const sumDice = sumOfDiceRolls(diceRolls);
   const sumTiles = sumOfSelectedTiles();
 
-  debugger;
   if (sumDice !== sumTiles) {
     modal("Du måste göra ett giltigt drag!");
     shutTiles = [];

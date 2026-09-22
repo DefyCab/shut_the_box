@@ -8,7 +8,7 @@ export function createRoomService(api) {
       return await api.getRooms();
     },
 
-    creteRoom: async (name, maxPlayers) => {
+    createRoom: async (name, maxPlayers) => {
       return await api.createRoom(name, maxPlayers);
     },
   };

@@ -23,7 +23,8 @@ const createRoomBtn = document.querySelector("#create-room-btn");
 createRoomBtn.addEventListener("click", createRoom);
 
 async function createRoom() {
-  const create = await roomService.creteRoom("defys nya nya singelrum", 1);
+  debugger;
+  const create = await roomService.createRoom("defys nya nya singelrum", 1);
 
   const roomCode = create.roomCode;
   modal(`Ett rum med koden ${roomCode} har skapats`);
@@ -33,7 +34,7 @@ async function createRoom() {
 async function createGameLobby() {
   const rooms = await getallRooms();
 
-  const main = document.querySelector(".main-container");
+  const main = document.querySelector(".game-board");
 
   let id = 1;
 

@@ -32,3 +32,26 @@
   font-weight: light;
   font-size: 2.5rem;
 }
+
+.dialog {
+  background-color: whitesmoke;
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  margin: 0px;
+  padding: 0px;
+  border: solid 6px rgba(4, 20, 55, 0.925);
+  width: 30%;
+  height: 45%;
+  border-radius: 6px;
+  font-weight: normal;
+  font-size: larger;
+  gap: 5px;
+}
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

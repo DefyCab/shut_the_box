@@ -10,6 +10,7 @@
 .create-room-button {
   background-color: slateblue;
   border-radius: 4px;
+  border: 2px solid slategray;
   margin-right: 5px;
   cursor: pointer;
 }

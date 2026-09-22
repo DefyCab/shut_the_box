@@ -1,5 +1,5 @@
 export function modalCreateRoom(info) {
-  const gameBoard = document.querySelector(".main-container");
+  const main = document.querySelector(".main-container");
   const dialog = document.createElement("dialog");
   const divOne = document.createElement("div");
   const divTwo = document.createElement("div");
@@ -21,7 +21,7 @@ export function modalCreateRoom(info) {
 
   closeButton.innerText = "x";
 
-  gameBoard.appendChild(dialog);
+  main.appendChild(dialog);
   dialog.appendChild(divOne);
   divOne.append(boilerPlate, name, player, roomCode);
   dialog.appendChild(divTwo);

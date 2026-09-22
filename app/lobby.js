@@ -14,11 +14,12 @@ async function getallRooms() {
 }
 
 const createRoomBtn = document.querySelector("#create-room-btn");
-createRoomBtn.addEventListener("click", formRoomInfo);
+createRoomBtn.addEventListener("click", createForm);
 
-function formRoomInfo() {
-  console.log("click");
-  form();
+function createForm() {
+  const roomInfo = form();
+
+  createRoom(roomInfo.name, roomInfo.players);
 }
 
 async function createRoom() {

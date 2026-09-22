@@ -1,33 +1,24 @@
-import * as api from "../db/db.js";
-import { createRoomService } from "../app/services/roomService.js";
-import { modal } from "./components/modal.js";
+import create from "../mock/create.js";
 
-const roomService = createRoomService(api);
+// import * as api from "../db/db.js";
+// import { createRoomService } from "../app/services/roomService.js";
 
-// const roomCode = "Z666G3";
-
-// async function updateRoom() {
-//   const room = await roomService.getRoom(`${roomCode}`);
-//   return room;
-// }
+// const roomService = createRoomService(api);
 
 async function getallRooms() {
   const rooms = await roomService.getRooms();
   return rooms;
 }
 
-console.log(await getallRooms());
-// const room = await roomService.getRoom(`${roomCode}`);
-
 const createRoomBtn = document.querySelector("#create-room-btn");
 createRoomBtn.addEventListener("click", createRoom);
 
 async function createRoom() {
-  debugger;
-  const create = await roomService.createRoom("defys nya nya singelrum", 1);
-
-  const roomCode = create.roomCode;
-  modal(`Ett rum med koden ${roomCode} har skapats`);
+  // const create = await roomService.createRoom("defys nya nya singelrum", 1);
+  const createTest = create;
+  console.log(createTest);
+  const roomCode = create.state.roomCode;
+  console.log(roomCode);
   return create;
 }
 
@@ -52,14 +43,10 @@ async function createGameLobby() {
       gameRoom.setAttribute("id", `${id}`);
 
       const gameRoomNameSpan = document.createElement("span");
-      // const gameRoomNamePrefix = document.createElement("p");
-      // gameRoomNamePrefix.classList.add("category");
       gameRoomNameSpan.classList.add("game-room-span");
       gameRoomNameSpan.setAttribute("id", "game-room-name");
 
       const gameRoomPlayerSpan = document.createElement("span");
-      // const gameRoomPlayerPrefix = document.createElement("p");
-      // gameRoomPlayerPrefix.classList.add("category");
       gameRoomPlayerSpan.classList.add("game-room-name");
       gameRoomPlayerSpan.setAttribute("id", "player-one");
 
@@ -87,19 +74,14 @@ async function createGameLobby() {
     }
   });
   const openGamebtns = document.querySelectorAll(".open-game");
-  console.log(openGamebtns);
   openGamebtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      console.log(btn);
       const id = Number(btn.id);
       const gameCode = rooms[id - 1].gameCode;
 
       window.location.href = `game.html?gameCode=${gameCode}`;
     });
   });
-
-  //TODO: Loop over gameRooms and take id to get gameCode.
-  // create button on each article
 }
 
 createGameLobby();

@@ -347,7 +347,7 @@ body::before {
 
 .number-not-selectable {
   color: white;
-  font-size: 60px;
+  font-size: 50px;
   border: solid 3px slategray;
   opacity: calc(0.4);
 }

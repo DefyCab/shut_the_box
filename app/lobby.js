@@ -25,7 +25,7 @@ createRoomBtn.addEventListener("click", createRoom);
 async function createRoom() {
   const create = await roomService.creteRoom("defys nya nya singelrum", 1);
 
-  const roomCode = state.roomCode;
+  const roomCode = create.roomCode;
   modal(`Ett rum med koden ${roomCode} har skapats`);
   return create;
 }

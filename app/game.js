@@ -10,6 +10,9 @@ const gameCode = urlSplit[1];
 
 const gameService = createGameService(api);
 
+// initital state
+updateState();
+
 // rendera brickor
 renderTiles();
 
@@ -21,7 +24,6 @@ tiles.forEach((tile) => {
 
 async function updateState() {
   const state = await gameService.getCurrentState(`${gameCode}`);
-
   const [{ currentScore }] = state.players;
   const currentScoreP = document.getElementById("current-score");
 
@@ -36,7 +38,7 @@ async function updateState() {
 
   tiles.forEach((tile) => {
     if (!openNumbers.includes(Number(tile.id))) {
-      tile.classList.add("number-not-selectable");
+      tile.classList.add("shut-tile");
     }
   });
 
@@ -97,34 +99,55 @@ function selectTile(tile) {
   }
 }
 
-async function blockUnvalidMoves() {
-  const state = await gameService.getCurrentState(`${gameCode}`);
+// async function blockUnvalidMoves() {
+//   const state = await gameService.getCurrentState(`${gameCode}`);
 
-  const { openNumbers } = state.players[0];
+//   const { openNumbers } = state.players[0];
 
-  tiles.forEach((tile) => {
-    if (!openNumbers.includes(Number(tile.id))) {
-      tile.classList.add("shut-tile");
-    }
-  });
-}
+//   tiles.forEach((tile) => {
+//     if (!openNumbers.includes(Number(tile.id))) {
+//       tile.classList.add("shut-tile");
+//     }
+//   });
+// }
 
-const roll = document.getElementById("roll-both");
-roll.addEventListener("click", rollDice);
+const rollbtn = document.getElementById("roll-both");
+rollbtn.addEventListener("click", rollDice);
 
 async function rollDice() {
-  
-  const roll = await gameService.rollDice(`${gameCode}`);
-  diceRolls[0] = roll.currentDiceRoll.die1;
+  const state = await gameService.getCurrentState(`${gameCode}`);
 
-  if (roll.currentDiceRoll.diceCount > 1) {
-    diceRolls[1] = roll.currentDiceRoll.die2;
+  if (state.currentDiceRoll !== null) {
+    diceRolls[0] = state.currentDiceRoll.die1;
+
+    if (state.currentDiceRoll.diceCount > 1) {
+      diceRolls[1] = state.currentDiceRoll.die2;
+    }
+
+    showDice();
+  } else {
+    const roll = await gameService.rollDice(`${gameCode}`);
+    diceRolls[0] = roll.currentDiceRoll.die1;
+
+    if (roll.currentDiceRoll.diceCount > 1) {
+      diceRolls[1] = roll.currentDiceRoll.die2;
+    }
+
+    showDice();
+
+    const [{ validMoves }] = roll.validMoves;
+    debugger
+
+    tiles.forEach((tile) => {
+      if (!validMoves.includes(Number(tile.id))) {
+        tile.classList.add(".number-not-selectable");
+      }
+    });
+
+    // blockUnvalidMoves();
+    rollbtn.disabled = true;
+    rollbtn.classList.add("disabled");
   }
-
-  showDice();
-  blockUnvalidMoves();
-  roll.disabled = true;
-  roll.classList.add("disabled");
 }
 
 function removeOldDice() {
@@ -145,6 +168,7 @@ async function isShutValid() {
   const sumDice = sumOfDiceRolls();
   const sumTiles = sumOfSelectedTiles();
 
+  debugger;
   if (sumDice !== sumTiles) {
     modal("Du måste göra ett giltigt drag!");
     shutTiles = [];
@@ -155,31 +179,29 @@ async function isShutValid() {
     selectedNumbers: shutTiles,
   });
 
-  debugger;
-  shutSelectedTiles();
-  openAllRemainingTilesForSelection();
-  roll.classList.remove("disabled");
+  // shutSelectedTiles();
+  // openAllRemainingTilesForSelection();
+  rollbtn.classList.remove("disabled");
   setTimeout(() => {
     removeOldDice();
   }, 1500);
   updateState();
-  roll.disabled = false;
+  rollbtn.disabled = false;
 }
 
-function openAllRemainingTilesForSelection() {
-  tiles.forEach((tile) => {
-    if (tile.classList.contains("number-not-selectable")) {
-      tile.classList.remove("number-not-selectable");
-    }
-  });
-}
+// function openAllRemainingTilesForSelection() {
+//   tiles.forEach((tile) => {
+//     if (tile.classList.contains("number-not-selectable")) {
+//       tile.classList.remove("number-not-selectable");
+//     }
+//   });
+// }
 
 function sumOfSelectedTiles() {
   tiles.forEach((tile) => {
     if (tile.classList.contains("number-selected")) {
       shutTiles.push(Number(tile.innerText));
     }
-    debugger;
   });
 
   const sumOfSelectedTiles = shutTiles.reduce(
@@ -190,18 +212,18 @@ function sumOfSelectedTiles() {
   return sumOfSelectedTiles;
 }
 
-function shutSelectedTiles() {
-  tiles.forEach((tile) => {
-    if (tile.classList.contains("number-selected")) {
-      discardUsedTiles(tile.id);
-    }
-  });
-}
+// function shutSelectedTiles() {
+//   tiles.forEach((tile) => {
+//     if (tile.classList.contains("number-selected")) {
+//       discardUsedTiles(tile.id);
+//     }
+//   });
+// }
 
-function discardUsedTiles(id) {
-  const tileToRemove = document.getElementById(`${id}`);
-  tileToRemove.classList.add("shut-tile");
-}
+// function discardUsedTiles(id) {
+//   const tileToRemove = document.getElementById(`${id}`);
+//   tileToRemove.classList.add("shut-tile");
+// }
 
 const shutTilesButton = document.getElementById("submit-button");
 shutTilesButton.addEventListener("click", isShutValid);

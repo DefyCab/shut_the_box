@@ -129,18 +129,23 @@ async function rollDice() {
     const roll = await gameService.rollDice(`${gameCode}`);
     diceRolls[0] = roll.currentDiceRoll.die1;
 
-    if (roll.currentDiceRoll.diceCount > 1) {
+    if (roll.currentDiceRoll.diceCount === 2) {
       diceRolls[1] = roll.currentDiceRoll.die2;
     }
 
     showDice();
 
-    const [{ validMoves }] = roll.validMoves;
-    debugger
+    const validMoves = roll.validMoves.flat();
+
+    const { openNumbers } = roll.players[0];
 
     tiles.forEach((tile) => {
       if (!validMoves.includes(Number(tile.id))) {
-        tile.classList.add(".number-not-selectable");
+        tile.classList.add("number-not-selectable");
+      }
+
+      if (!openNumbers.includes(Number(tile.id))) {
+        tile.classList.remove("number-not-selectable");
       }
     });
 
@@ -179,23 +184,28 @@ async function isShutValid() {
     selectedNumbers: shutTiles,
   });
 
-  // shutSelectedTiles();
-  // openAllRemainingTilesForSelection();
+  shutSelectedTiles();
+  openAllRemainingTilesForSelection();
   rollbtn.classList.remove("disabled");
+  tiles.forEach((tile) => {
+    tile.classList.remove("number-selected");
+  });
+
   setTimeout(() => {
     removeOldDice();
   }, 1500);
   updateState();
   rollbtn.disabled = false;
+  shutTiles = [];
 }
 
-// function openAllRemainingTilesForSelection() {
-//   tiles.forEach((tile) => {
-//     if (tile.classList.contains("number-not-selectable")) {
-//       tile.classList.remove("number-not-selectable");
-//     }
-//   });
-// }
+function openAllRemainingTilesForSelection() {
+  tiles.forEach((tile) => {
+    if (tile.classList.contains("number-not-selectable")) {
+      tile.classList.remove("number-not-selectable");
+    }
+  });
+}
 
 function sumOfSelectedTiles() {
   tiles.forEach((tile) => {
@@ -212,13 +222,13 @@ function sumOfSelectedTiles() {
   return sumOfSelectedTiles;
 }
 
-// function shutSelectedTiles() {
-//   tiles.forEach((tile) => {
-//     if (tile.classList.contains("number-selected")) {
-//       discardUsedTiles(tile.id);
-//     }
-//   });
-// }
+function shutSelectedTiles() {
+  tiles.forEach((tile) => {
+    if (tile.classList.contains("number-selected")) {
+      tile.classList.remove("number-selected");
+    }
+  });
+}
 
 // function discardUsedTiles(id) {
 //   const tileToRemove = document.getElementById(`${id}`);

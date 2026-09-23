@@ -1,29 +1,27 @@
-import create from "../mock/create.js";
+// import create from "../mock/create.js";
 import { form } from "./components/form.js";
 import { modalCreateRoom } from "./components/modalCreateRoom.js";
 
-// import * as api from "../db/db.js";
-// import { createRoomService } from "../app/services/roomService.js";
+import * as api from "../db/db.js";
+import { createRoomService } from "../app/services/roomService.js";
 
-// const roomService = createRoomService(api);
+const roomService = createRoomService(api);
 
 async function getallRooms() {
-  // const rooms = await roomService.getRooms();
-  const rooms = [];
+  const rooms = await roomService.getRooms();
   return rooms;
 }
 
 const createRoomBtn = document.querySelector("#create-room-btn");
-createRoomBtn.addEventListener("click", createForm);
-
-function createForm() {
-  const roomInfo = form();
-
-  createRoom(roomInfo.name, roomInfo.players);
-}
+createRoomBtn.addEventListener("click", createRoom);
 
 async function createRoom() {
-  // const create = await roomService.createRoom("defys nya nya singelrum", 1);
+  const roomInfo = await form();
+
+  const create = await roomService.createRoom(
+    roomInfo.name,
+    roomInfo.numberOfPlayers,
+  );
 
   const { room, state } = create;
 

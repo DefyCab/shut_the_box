@@ -333,6 +333,8 @@ body::before {
 
 .disabled {
   cursor: not-allowed;
+  border: solid 3px slategray;
+  opacity: calc(0.4);
 }
 
 .current-score-active-player {

@@ -52,8 +52,6 @@ async function updateState() {
   return state;
 }
 
-//Globala variablar
-// const diceRolls = [];
 const dice = [
   ["center"],
   ["top-left", "bottom-right"],
@@ -117,6 +115,7 @@ async function rollDice() {
     }
 
     showDice(diceRolls);
+    
   } else {
     const diceRolls = [];
     const roll = await gameService.rollDice(`${gameCode}`);

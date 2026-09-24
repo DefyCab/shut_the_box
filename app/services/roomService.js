@@ -9,7 +9,6 @@ export function createRoomService(api) {
     },
 
     createRoom: async (name, maxPlayers) => {
-      debugger;
       return await api.createRoom(name, maxPlayers);
     },
   };

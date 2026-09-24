@@ -87,22 +87,22 @@ function showDice(diceRolls) {
 }
 
 // Hantering av brickor
-let clickCounter = 0;
+// let clickCounter = 0;
 
 function selectTile(tile) {
-  if (clickCounter === 4 && !tile.classList.contains("number-selected")) {
-    return;
-  }
+  // if (clickCounter === 4 && !tile.classList.contains("number-selected")) {
+  //   return;
+  // }
   if (tile.classList.contains("number-selected")) {
     tile.classList.remove("number-selected");
-    clickCounter--;
+    // clickCounter--;
   } else {
     tile.classList.add("number-selected");
-    clickCounter++;
+    // clickCounter++;
   }
 }
 
-const rollbtn = document.getElementById("roll-both");
+const rollbtn = document.getElementById("roll-dice");
 rollbtn.addEventListener("click", rollDice);
 
 async function rollDice() {

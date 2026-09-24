@@ -69,7 +69,6 @@ const dice = [
     "bottom-right",
   ],
 ];
-let shutTiles = [];
 
 const diceArea = document.querySelector(".dice-area");
 
@@ -91,9 +90,6 @@ function showDice(diceRolls) {
 let clickCounter = 0;
 
 function selectTile(tile) {
-  // if (diceRolls.length < 1) {
-  //   return;
-  // }
   if (clickCounter === 4 && !tile.classList.contains("number-selected")) {
     return;
   }
@@ -105,18 +101,6 @@ function selectTile(tile) {
     clickCounter++;
   }
 }
-
-// async function blockUnvalidMoves() {
-//   const state = await gameService.getCurrentState(`${gameCode}`);
-
-//   const { openNumbers } = state.players[0];
-
-//   tiles.forEach((tile) => {
-//     if (!openNumbers.includes(Number(tile.id))) {
-//       tile.classList.add("shut-tile");
-//     }
-//   });
-// }
 
 const rollbtn = document.getElementById("roll-both");
 rollbtn.addEventListener("click", rollDice);
@@ -144,6 +128,10 @@ async function rollDice() {
 
     showDice(diceRolls);
 
+    if (roll.validMoves.length === 0) {
+      endGame();
+    }
+
     const validMoves = roll.validMoves.flat();
 
     const { openNumbers } = roll.players[0];
@@ -160,7 +148,6 @@ async function rollDice() {
       }
     });
 
-    // blockUnvalidMoves();
     rollbtn.disabled = true;
     rollbtn.classList.add("disabled");
   }
@@ -193,11 +180,15 @@ async function isShutValid() {
   }
 
   const sumDice = sumOfDiceRolls(diceRolls);
-  const sumTiles = sumOfSelectedTiles();
+  const shutTiles = selectedTiles();
+
+  const sumTiles = shutTiles.reduce(
+    (accumulator, current) => accumulator + current,
+    0,
+  );
 
   if (sumDice !== sumTiles) {
     modal("Du måste göra ett giltigt drag!");
-    shutTiles = [];
     return;
   }
 
@@ -208,16 +199,12 @@ async function isShutValid() {
   shutSelectedTiles();
   openAllRemainingTilesForSelection();
   rollbtn.classList.remove("disabled");
-  tiles.forEach((tile) => {
-    tile.classList.remove("number-selected");
-  });
 
   setTimeout(() => {
     removeOldDice();
-  }, 1500);
+  }, 500);
   updateState();
   rollbtn.disabled = false;
-  shutTiles = [];
 }
 
 function openAllRemainingTilesForSelection() {
@@ -228,19 +215,15 @@ function openAllRemainingTilesForSelection() {
   });
 }
 
-function sumOfSelectedTiles() {
+function selectedTiles() {
+  const shutTiles = [];
   tiles.forEach((tile) => {
     if (tile.classList.contains("number-selected")) {
       shutTiles.push(Number(tile.innerText));
     }
   });
 
-  const sumOfSelectedTiles = shutTiles.reduce(
-    (accumulator, current) => accumulator + current,
-    0,
-  );
-
-  return sumOfSelectedTiles;
+  return shutTiles;
 }
 
 function shutSelectedTiles() {
@@ -251,10 +234,9 @@ function shutSelectedTiles() {
   });
 }
 
-// function discardUsedTiles(id) {
-//   const tileToRemove = document.getElementById(`${id}`);
-//   tileToRemove.classList.add("shut-tile");
-// }
-
 const shutTilesButton = document.getElementById("submit-button");
 shutTilesButton.addEventListener("click", isShutValid);
+
+function endGame() {
+  modal("Spelet är slut!");
+}

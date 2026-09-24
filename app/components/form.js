@@ -54,10 +54,10 @@ export function form() {
 
       const roomInfo = {
         name: userName.value,
-        numberOfPlayers: numberOfPlayers.value,
+        numberOfPlayers: Number(numberOfPlayers.value),
       };
+      dialog.close();
       resolve(roomInfo);
     });
-    dialog.close();
   });
 }

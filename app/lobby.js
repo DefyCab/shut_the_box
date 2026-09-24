@@ -18,6 +18,7 @@ createRoomBtn.addEventListener("click", createRoom);
 async function createRoom() {
   const roomInfo = await form();
 
+  debugger;
   const create = await roomService.createRoom(
     roomInfo.name,
     roomInfo.numberOfPlayers,

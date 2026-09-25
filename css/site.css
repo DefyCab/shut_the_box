@@ -33,7 +33,7 @@
   font-size: 2.5rem;
 }
 
-.dialog {
+.dialog-site {
   background-color: whitesmoke;
   position: fixed;
   top: 40%;
@@ -49,7 +49,7 @@
   gap: 5px;
 }
 
-.dialog-container {
+.dialog-container-site {
   display: flex;
   flex-direction: column;
   justify-content: center;

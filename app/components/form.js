@@ -20,10 +20,10 @@ export function form() {
     submitButton.classList.add("submit-btn");
     submitButton.setAttribute("type", "submit");
     submitButton.innerText = "Skapa rum";
-    dialog.classList.add("dialog");
-    divOne.classList.add("dialog-container");
-    divTwo.classList.add("dialog-container");
-    divThree.classList.add("dialog-container");
+    dialog.classList.add("dialog-site");
+    divOne.classList.add("dialog-container-site");
+    divTwo.classList.add("dialog-container-site");
+    divThree.classList.add("dialog-container-site");
     title.innerHTML = `<bold>Skapa ett nytt rum</bold>`;
     labelName.setAttribute("for", "userName");
     labelName.innerText = "Namn:";

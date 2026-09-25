@@ -9,6 +9,7 @@ const roomService = createRoomService(api);
 
 async function getallRooms() {
   const rooms = await roomService.getRooms();
+  console.log(rooms);
   return rooms;
 }
 

@@ -1,4 +1,4 @@
-export function modalCreateRoom(info) {
+export function modalCreateRoom(info, callback) {
   const main = document.querySelector(".main-container");
   const dialog = document.createElement("dialog");
   const divOne = document.createElement("div");
@@ -29,6 +29,7 @@ export function modalCreateRoom(info) {
 
   dialog.open = true;
   closeButton.addEventListener("click", () => {
+    callback();
     dialog.close();
   });
 }

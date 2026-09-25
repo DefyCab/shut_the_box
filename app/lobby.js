@@ -1,5 +1,5 @@
 import { form } from "./components/form.js";
-// import { modalCreateRoom } from "./components/modalCreateRoom.js";
+import { modalCreateRoom } from "./components/modalCreateRoom.js";
 
 import * as api from "../db/db.js";
 import { createRoomService } from "./services/roomService.js";
@@ -11,14 +11,46 @@ const userService = createUserService(api);
 const user = await userService.getUser();
 console.log(user);
 
+let counter = 0;
 async function getAllSinglePlayerRooms() {
-  const singlePlayerRooms = await roomService.getSinglePlayerRooms();
-
-  return singlePlayerRooms;
+  console.log(counter);
+  if (counter % 2 === 0) {
+    const singlePlayerRooms = await roomService.getSinglePlayerRooms();
+    counter = counter + 1;
+    return singlePlayerRooms;
+  } else {
+    window.location.href = "lobby.html";
+  }
 }
 
-const createRoomBtn = document.querySelector("#create-room-btn");
-createRoomBtn.addEventListener("click", createRoom);
+const createSingleRoomBtn = document.querySelector("#create-single-room-btn");
+createSingleRoomBtn.addEventListener("click", createSingleRoom);
+
+async function createSingleRoom() {
+  const roomInfo = {
+    name: "Singelspel",
+    numberOfPlayers: 1,
+  };
+
+  const create = await roomService.createRoom(
+    roomInfo.name,
+    roomInfo.numberOfPlayers,
+  );
+
+  const { room, state } = create;
+
+  const info = {
+    name: room.name,
+    player: room.players[0].name,
+    roomCode: state.roomCode,
+  };
+
+  modalCreateRoom(info, () => {
+    window.location.href = "lobby.html";
+  });
+
+  return create;
+}
 
 // async function createRoom() {
 //   const roomInfo = await form();
@@ -40,6 +72,11 @@ createRoomBtn.addEventListener("click", createRoom);
 
 //   return create;
 // }
+
+const showSinglePlayerRoomsBtn = document.getElementById(
+  "show-singleplayer-rooms-btn",
+);
+showSinglePlayerRoomsBtn.addEventListener("click", createGameLobby);
 
 async function createGameLobby() {
   const rooms = await getAllSinglePlayerRooms();
@@ -102,5 +139,3 @@ async function createGameLobby() {
     });
   });
 }
-
-createGameLobby();

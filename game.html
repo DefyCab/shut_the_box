@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="images/blue_dice.png" />
     <link rel="stylesheet" type="text/css" href="css/game.css" />
     <link rel="stylesheet" type="text/css" href="css/site.css" />
@@ -10,42 +10,37 @@
     <script src="./db/db.js" type="module"></script>
     <script src="./app/services/gameService.js" type="module"></script>
     <title>Shut the box</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <h3></h3>
-        <h1>SHUT THE BOX</h1>
-        <h3></h3>
+      <h3></h3>
+      <h1>SHUT THE BOX</h1>
+      <h3></h3>
     </nav>
     <section class="game-controls">
-        <button class="game-button" id="start">Starta nytt spel</button>
-        <button class="game-button" id="leave">Lämna spel</button>
+      <button class="game-button" id="start">Starta nytt spel</button>
+      <button class="game-button" id="leave">Lämna spel</button>
     </section>
     <main class="game-board">
-        <section class="game-header">
-            <button class="submit-button" id="submit-button">Shut selected tiles</button>
-            <div class="current-score-active-player">
-                <span class="current-score"><p id="current-score"></p></span>
-                <span class="active-player"><p id="active-player"></p></span>
-            </div>
-            <button class="game-button" id="roll-dice">Roll dice</button>
-        </section>
+      <section class="game-header">
+        <button class="submit-button" id="submit-button">
+          Shut selected tiles
+        </button>
+        <div class="current-score-active-player">
+          <span class="current-score"><p id="current-score"></p></span>
+          <span class="active-player"><p id="active-player"></p></span>
+        </div>
+        <button class="game-button" id="roll-dice">Roll dice</button>
+      </section>
 
-        <!-- Number board -->
-        <section class="number-board">
+      <!-- Number board -->
+      <section class="number-board"></section>
 
-        </section>       
-
-        <!-- Dice area -->
-        <section class="dice-area">
-          
-        </section>
-
+      <!-- Dice area -->
+      <section class="dice-area"></section>
     </main>
-
-</body>
-</html>
-<footer>
-    <h2><a class="game-link" href="index.html">Back</a></h2>
-</footer>
+    <footer>
+      <h2><a class="game-link" href="index.html">Back</a></h2>
+    </footer>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-import { modal } from "../app/components/modal.js";
+import { modal, modalEndGame } from "../app/components/modal.js";
 import { renderTiles } from "./components/renderTiles.js";
 
 import * as api from "../db/db.js";
@@ -29,6 +29,7 @@ tiles.forEach((tile) => {
 async function updateState() {
   const state = await gameService.getCurrentState(`${gameCode}`);
   console.log(state);
+
   const [{ currentScore }] = state.players;
   const currentScoreP = document.getElementById("current-score");
 
@@ -146,13 +147,13 @@ async function rollDice() {
 
     showDice(diceRolls);
 
+    const [{ currentScore }] = roll.players;
     if (roll.validMoves.length === 0) {
-      endGame();
+      endGame(currentScore);
     }
 
     const validMoves = roll.validMoves.flat();
-
-    const { openNumbers } = roll.players[0];
+    const [{ openNumbers }] = roll.players;
 
     tiles.forEach((tile) => {
       if (!validMoves.includes(Number(tile.id))) {
@@ -220,7 +221,7 @@ async function isShutValid() {
 
   setTimeout(() => {
     removeOldDice();
-  }, 500);
+  }, 200);
   updateState();
   rollbtn.disabled = false;
 }
@@ -255,6 +256,12 @@ function shutSelectedTiles() {
 const shutTilesButton = document.getElementById("submit-button");
 shutTilesButton.addEventListener("click", isShutValid);
 
-function endGame() {
-  modal("Spelet är slut!");
+function endGame(currentScore) {
+  modalEndGame("Spelet är slut!", currentScore, () => {
+    window.location.href = "game.html";
+  });
+
+  // setTimeout(() => {
+  //   window.location.href = "game.html";
+  // }, 2000);
 }

@@ -93,15 +93,10 @@ function showDice(diceRolls) {
 // let clickCounter = 0;
 
 function selectTile(tile) {
-  // if (clickCounter === 4 && !tile.classList.contains("number-selected")) {
-  //   return;
-  // }
   if (tile.classList.contains("number-selected")) {
     tile.classList.remove("number-selected");
-    // clickCounter--;
   } else {
     tile.classList.add("number-selected");
-    // clickCounter++;
   }
 }
 
@@ -114,9 +109,7 @@ startBtn.addEventListener("click", createRoom);
 async function createRoom() {
   debugger;
   const create = await roomService.createRoom("Nytt spel", 1);
-
   const { state } = create;
-
   const gameCode = state.gameCode;
 
   window.location.href = `game.html?gameCode=${gameCode}`;
@@ -260,8 +253,4 @@ function endGame(currentScore) {
   modalEndGame("Spelet är slut!", currentScore, () => {
     window.location.href = "game.html";
   });
-
-  // setTimeout(() => {
-  //   window.location.href = "game.html";
-  // }, 2000);
 }

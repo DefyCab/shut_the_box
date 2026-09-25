@@ -1,17 +1,15 @@
-// import create from "../mock/create.js";
 import { form } from "./components/form.js";
-import { modalCreateRoom } from "./components/modalCreateRoom.js";
+// import { modalCreateRoom } from "./components/modalCreateRoom.js";
 
 import * as api from "../db/db.js";
-import { createRoomService } from "../app/services/roomService.js";
+import { createRoomService } from "./services/roomService.js";
+import { createUserService } from "./services/userService.js";
 
 const roomService = createRoomService(api);
+const userService = createUserService(api);
 
-// async function getallRooms() {
-//   const rooms = await roomService.getRooms();
-//   console.log(rooms);
-//   return rooms;
-// }
+const user = await userService.getUser();
+console.log(user);
 
 async function getAllSinglePlayerRooms() {
   const singlePlayerRooms = await roomService.getSinglePlayerRooms();
@@ -22,26 +20,26 @@ async function getAllSinglePlayerRooms() {
 const createRoomBtn = document.querySelector("#create-room-btn");
 createRoomBtn.addEventListener("click", createRoom);
 
-async function createRoom() {
-  const roomInfo = await form();
+// async function createRoom() {
+//   const roomInfo = await form();
 
-  const create = await roomService.createRoom(
-    roomInfo.name,
-    roomInfo.numberOfPlayers,
-  );
+//   const create = await roomService.createRoom(
+//     roomInfo.name,
+//     roomInfo.numberOfPlayers,
+//   );
 
-  const { room, state } = create;
+//   const { room, state } = create;
 
-  const info = {
-    name: room.name,
-    player: room.players[0].name,
-    roomCode: state.roomCode,
-  };
+//   const info = {
+//     name: room.name,
+//     player: room.players[0].name,
+//     roomCode: state.roomCode,
+//   };
 
-  modalCreateRoom(info);
+//   modalCreateRoom(info);
 
-  return create;
-}
+//   return create;
+// }
 
 async function createGameLobby() {
   const rooms = await getAllSinglePlayerRooms();

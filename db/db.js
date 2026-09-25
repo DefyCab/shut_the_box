@@ -4,6 +4,7 @@ const version = "v1";
 const apiEndpointBase = `${baseUrl}/${version}`;
 const token = localStorage.getItem("token");
 
+// roomService
 export async function getRoom(id) {
   try {
     const response = await fetch(`${apiEndpointBase}/rooms/${id}`, {
@@ -87,6 +88,7 @@ export async function leaveRoom(gameId) {
   }
 }
 
+// gameService
 export async function getCurrentState(gameId) {
   try {
     const response = await fetch(`${apiEndpointBase}/games/${gameId}/state`, {
@@ -134,6 +136,26 @@ export async function submitMove(gameId, move) {
         "Content-type": "application/json",
       },
       body: JSON.stringify(move),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(`Status: ${error.status}`);
+  }
+}
+
+//userService
+export async function getUser() {
+  try {
+    const response = await fetch(`${apiEndpointBase}/auth/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {

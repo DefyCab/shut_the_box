@@ -2,7 +2,7 @@ import { modal, modalEndGame, modalLeave } from "../app/components/modal.js";
 import { renderTiles } from "./components/renderTiles.js";
 
 import * as api from "../db/db.js";
-import { createGameService } from "../app/services/gameService.js";
+import { createGameService } from "./services/gameService.js";
 import { createRoomService } from "./services/roomService.js";
 
 const url = window.location.href;

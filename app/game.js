@@ -1,4 +1,4 @@
-import { modal, modalEndGame } from "../app/components/modal.js";
+import { modal, modalEndGame, modalLeave } from "../app/components/modal.js";
 import { renderTiles } from "./components/renderTiles.js";
 
 import * as api from "../db/db.js";
@@ -90,7 +90,6 @@ function showDice(diceRolls) {
 }
 
 // Hantering av brickor
-// let clickCounter = 0;
 
 function selectTile(tile) {
   if (tile.classList.contains("number-selected")) {
@@ -100,14 +99,30 @@ function selectTile(tile) {
   }
 }
 
+// get elements for buttons
 const rollbtn = document.getElementById("roll-dice");
 rollbtn.addEventListener("click", rollDice);
 
 const startBtn = document.getElementById("start");
 startBtn.addEventListener("click", createRoom);
 
-async function createRoom() {
+const leaveBtn = document.getElementById("leave");
+leaveBtn.addEventListener("click", leaveRoom);
+
+async function leaveRoom() {
   debugger;
+  const leave = await roomService.leaveRoom(`${gameCode}`);
+
+  modalLeave("Du har lämnat spelet och det är nu avslutat", () => {
+    window.location.href = "game.html";
+  });
+}
+
+// function refreshGame() {
+//   window.location.href = "game.html";
+// }
+
+async function createRoom() {
   const create = await roomService.createRoom("Nytt spel", 1);
   const { state } = create;
   const gameCode = state.gameCode;

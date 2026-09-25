@@ -110,17 +110,14 @@ const leaveBtn = document.getElementById("leave");
 leaveBtn.addEventListener("click", leaveRoom);
 
 async function leaveRoom() {
-  debugger;
   const leave = await roomService.leaveRoom(`${gameCode}`);
 
-  modalLeave("Du har lämnat spelet och det är nu avslutat", () => {
-    window.location.href = "game.html";
-  });
+  modalLeave("Du har lämnat spelet och det är nu avslutat", refreshGame);
 }
 
-// function refreshGame() {
-//   window.location.href = "game.html";
-// }
+function refreshGame() {
+  window.location.href = "game.html";
+}
 
 async function createRoom() {
   const create = await roomService.createRoom("Nytt spel", 1);
@@ -265,7 +262,5 @@ const shutTilesButton = document.getElementById("submit-button");
 shutTilesButton.addEventListener("click", isShutValid);
 
 function endGame(currentScore) {
-  modalEndGame("Spelet är slut!", currentScore, () => {
-    window.location.href = "game.html";
-  });
+  modalEndGame("Spelet är slut!", currentScore, refreshGame);
 }

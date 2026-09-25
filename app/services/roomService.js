@@ -13,7 +13,6 @@ export function createRoomService(api) {
     },
 
     leaveRoom: async (id) => {
-      debugger;
       return await api.leaveRoom(id);
     },
   };

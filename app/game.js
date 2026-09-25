@@ -3,15 +3,19 @@ import { renderTiles } from "./components/renderTiles.js";
 
 import * as api from "../db/db.js";
 import { createGameService } from "../app/services/gameService.js";
+import { createRoomService } from "./services/roomService.js";
 
 const url = window.location.href;
 const urlSplit = url.split("=");
 const gameCode = urlSplit[1];
 
 const gameService = createGameService(api);
+const roomService = createRoomService(api);
 
 // initital state
-updateState();
+if (gameCode !== undefined) {
+  updateState();
+}
 
 // rendera brickor
 renderTiles();
@@ -103,6 +107,22 @@ function selectTile(tile) {
 const rollbtn = document.getElementById("roll-dice");
 rollbtn.addEventListener("click", rollDice);
 
+const startBtn = document.getElementById("start");
+startBtn.addEventListener("click", createRoom);
+
+async function createRoom() {
+  debugger;
+  const create = await roomService.createRoom("Nytt spel", 1);
+
+  const { state } = create;
+
+  const gameCode = state.gameCode;
+
+  window.location.href = `game.html?gameCode=${gameCode}`;
+
+  await updateState();
+}
+
 async function rollDice() {
   const diceRolls = [];
   const state = await gameService.getCurrentState(`${gameCode}`);
@@ -115,7 +135,6 @@ async function rollDice() {
     }
 
     showDice(diceRolls);
-    
   } else {
     const diceRolls = [];
     const roll = await gameService.rollDice(`${gameCode}`);

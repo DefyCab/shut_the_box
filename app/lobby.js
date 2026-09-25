@@ -7,10 +7,16 @@ import { createRoomService } from "../app/services/roomService.js";
 
 const roomService = createRoomService(api);
 
-async function getallRooms() {
-  const rooms = await roomService.getRooms();
-  console.log(rooms);
-  return rooms;
+// async function getallRooms() {
+//   const rooms = await roomService.getRooms();
+//   console.log(rooms);
+//   return rooms;
+// }
+
+async function getAllSinglePlayerRooms() {
+  const singlePlayerRooms = await roomService.getSinglePlayerRooms();
+
+  return singlePlayerRooms;
 }
 
 const createRoomBtn = document.querySelector("#create-room-btn");
@@ -38,7 +44,7 @@ async function createRoom() {
 }
 
 async function createGameLobby() {
-  const rooms = await getallRooms();
+  const rooms = await getAllSinglePlayerRooms();
 
   const main = document.querySelector(".main-container");
 

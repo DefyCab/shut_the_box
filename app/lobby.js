@@ -9,6 +9,25 @@ const roomService = createRoomService(api);
 const userService = createUserService(api);
 
 const user = await userService.getUser();
+console.log(user);
+
+const currentUser = {
+  id: user.userId,
+  name: user.name,
+  userName: user.username,
+};
+
+async function checkforActiveRoom() {
+  const singlePlayerRooms = await roomService.getSinglePlayerRooms();
+
+  // const [{ userId }] = singlePlayerRooms.members;
+  singlePlayerRooms.map((room) => {
+    const userId = room.members;
+    if (userId === currentUser.id) {
+      showActiveRoom();
+    }
+  });
+}
 
 let counter = 0;
 async function getAllSinglePlayerRooms() {

@@ -9,7 +9,6 @@ const roomService = createRoomService(api);
 const userService = createUserService(api);
 
 const user = await userService.getUser();
-console.log(user);
 
 const currentUser = {
   id: user.userId,
@@ -22,11 +21,17 @@ async function checkforActiveRoom() {
 
   // const [{ userId }] = singlePlayerRooms.members;
   singlePlayerRooms.map((room) => {
-    const userId = room.members;
+    const [{ userId }] = room.players;
     if (userId === currentUser.id) {
-      showActiveRoom();
+      showActiveRoom(room);
     }
   });
+}
+
+checkforActiveRoom();
+
+function showActiveRoom(room) {
+  createRoomToDisplay(room);
 }
 
 let counter = 0;
@@ -98,61 +103,66 @@ showSinglePlayerRoomsBtn.addEventListener("click", createGameLobby);
 async function createGameLobby() {
   const rooms = await getAllSinglePlayerRooms();
 
+  rooms.map((room) => {
+    if (room.players.length < 2) {
+      createRoomToDisplay(room);
+    }
+  });
+}
+
+function createRoomToDisplay(room) {
+  const [{ name }] = room.players;
+
+  const singleGameRoom = {
+    room: room.roomName,
+    playerOne: name,
+  };
+
   const main = document.querySelector(".main-container");
 
   let id = 1;
 
-  rooms.map((room) => {
-    const [{ name }] = room.players;
+  const gameRoom = document.createElement("article");
+  gameRoom.classList.add("game-room");
+  gameRoom.setAttribute("id", `${id}`);
 
-    const singleGameRoom = {
-      room: room.roomName,
-      playerOne: name,
-    };
+  const gameRoomNameSpan = document.createElement("span");
+  gameRoomNameSpan.classList.add("game-room-span");
+  gameRoomNameSpan.setAttribute("id", "game-room-name");
 
-    if (room.players.length < 2) {
-      const gameRoom = document.createElement("article");
-      gameRoom.classList.add("game-room");
-      gameRoom.setAttribute("id", `${id}`);
+  const gameRoomPlayerSpan = document.createElement("span");
+  gameRoomPlayerSpan.classList.add("game-room-name");
+  gameRoomPlayerSpan.setAttribute("id", "player-one");
 
-      const gameRoomNameSpan = document.createElement("span");
-      gameRoomNameSpan.classList.add("game-room-span");
-      gameRoomNameSpan.setAttribute("id", "game-room-name");
+  const gameRoomName = document.createElement("p");
+  const playerOne = document.createElement("p");
 
-      const gameRoomPlayerSpan = document.createElement("span");
-      gameRoomPlayerSpan.classList.add("game-room-name");
-      gameRoomPlayerSpan.setAttribute("id", "player-one");
+  gameRoomName.innerHTML = `<strong>Rum: </strong> ${singleGameRoom.room}`;
+  playerOne.innerHTML = `<strong>Spelare: </strong> ${singleGameRoom.playerOne}`;
 
-      const gameRoomName = document.createElement("p");
-      const playerOne = document.createElement("p");
+  const buttonDiv = document.createElement("div");
+  const openGameBtn = document.createElement("button");
+  openGameBtn.setAttribute("id", `${id}`);
+  openGameBtn.classList.add("open-game");
+  openGameBtn.innerText = "Öppna rum";
 
-      gameRoomName.innerHTML = `<strong>Rum: </strong> ${singleGameRoom.room}`;
-      playerOne.innerHTML = `<strong>Spelare: </strong> ${singleGameRoom.playerOne}`;
+  main.appendChild(gameRoom);
+  gameRoom.append(gameRoomNameSpan);
+  gameRoomNameSpan.appendChild(gameRoomName);
+  gameRoom.appendChild(gameRoomPlayerSpan);
+  gameRoomPlayerSpan.appendChild(playerOne);
+  gameRoom.appendChild(buttonDiv);
+  buttonDiv.appendChild(openGameBtn);
 
-      const buttonDiv = document.createElement("div");
-      const openGameBtn = document.createElement("button");
-      openGameBtn.setAttribute("id", `${id}`);
-      openGameBtn.classList.add("open-game");
-      openGameBtn.innerText = "Öppna rum";
-
-      main.appendChild(gameRoom);
-      gameRoom.append(gameRoomNameSpan);
-      gameRoomNameSpan.appendChild(gameRoomName);
-      gameRoom.appendChild(gameRoomPlayerSpan);
-      gameRoomPlayerSpan.appendChild(playerOne);
-      gameRoom.appendChild(buttonDiv);
-      buttonDiv.appendChild(openGameBtn);
-
-      id = id + 1;
-    }
-  });
-  const openGamebtns = document.querySelectorAll(".open-game");
-  openGamebtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = Number(btn.id);
-      const gameCode = rooms[id - 1].gameCode;
-
-      window.location.href = `game.html?gameCode=${gameCode}`;
-    });
-  });
+  id = id + 1;
 }
+
+const openGamebtns = document.querySelectorAll(".open-game");
+openGamebtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = Number(btn.id);
+    const gameCode = rooms[id - 1].gameCode;
+
+    window.location.href = `game.html?gameCode=${gameCode}`;
+  });
+});

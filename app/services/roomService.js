@@ -22,7 +22,13 @@ export function createRoomService(api) {
     },
 
     createRoom: async (name, maxPlayers) => {
-      return await api.createRoom(name, maxPlayers);
+      const response = await api.createRoom(name, maxPlayers);
+
+      if (response.status === 409) {
+        throw new Error("Du har redan skapat ett singelrum");
+      }
+
+      return response;
     },
 
     leaveRoom: async (id) => {

@@ -4,6 +4,7 @@ import { modalCreateRoom } from "./components/modalCreateRoom.js";
 import * as api from "../db/db.js";
 import { createRoomService } from "./services/roomService.js";
 import { createUserService } from "./services/userService.js";
+import { modalLobby } from "./components/modal.js";
 
 const roomService = createRoomService(api);
 const userService = createUserService(api);
@@ -32,24 +33,29 @@ async function createSingleRoom() {
     numberOfPlayers: 1,
   };
 
-  const create = await roomService.createRoom(
-    roomInfo.name,
-    roomInfo.numberOfPlayers,
-  );
+  try {
+    const create = await roomService.createRoom(
+      roomInfo.name,
+      roomInfo.numberOfPlayers,
+    );
 
-  const { room, state } = create;
+    const { room, state } = create;
 
-  const info = {
-    name: room.name,
-    player: room.players[0].name,
-    roomCode: state.roomCode,
-  };
+    const info = {
+      name: room.name,
+      player: room.players[0].name,
+      roomCode: state.roomCode,
+    };
 
-  modalCreateRoom(info, () => {
-    window.location.href = "lobby.html";
-  });
+    modalCreateRoom(info, () => {
+      window.location.href = "lobby.html";
+    });
 
-  return create;
+    return create;
+  } catch (error) {
+    console.log(error);
+    modalLobby(`${error}`);
+  }
 }
 
 // async function createRoom() {

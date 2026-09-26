@@ -57,19 +57,14 @@ export async function createRoom(name, maxPlayers) {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error(`Status: ${response.status}`);
-    }
-
     return response.json();
   } catch (error) {
-    throw new Error(`Status: ${error.status}`);
+    throw new Error(`${response.status}`);
   }
 }
 
 export async function leaveRoom(gameId) {
   try {
-    debugger;
     const response = await fetch(`${apiEndpointBase}/games/${gameId}/leave`, {
       method: "POST",
       headers: {
@@ -77,7 +72,6 @@ export async function leaveRoom(gameId) {
       },
     });
 
-    console.log(response);
     if (!response.ok) {
       throw new Error(`Status: ${response.status}`);
     }

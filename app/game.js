@@ -28,7 +28,6 @@ tiles.forEach((tile) => {
 
 async function updateState() {
   const state = await gameService.getCurrentState(`${gameCode}`);
-  console.log(state);
 
   const [{ currentScore }] = state.players;
   const currentScoreP = document.getElementById("current-score");

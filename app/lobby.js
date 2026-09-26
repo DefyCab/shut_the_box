@@ -9,11 +9,9 @@ const roomService = createRoomService(api);
 const userService = createUserService(api);
 
 const user = await userService.getUser();
-console.log(user);
 
 let counter = 0;
 async function getAllSinglePlayerRooms() {
-  console.log(counter);
   if (counter % 2 === 0) {
     const singlePlayerRooms = await roomService.getSinglePlayerRooms();
     counter = counter + 1;
